@@ -1,0 +1,10 @@
+# Lokalni dev server — ne treba na Vercel/GitHub (Vercel servira statički)
+server.js
+
+# Node
+node_modules/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
