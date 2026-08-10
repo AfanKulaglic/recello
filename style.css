@@ -9775,3 +9775,34 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
         margin-bottom: 66px;
     }
 }
+
+/* ============================================================
+   RECELLO — Testimonials sa pravim firmama (zvjezdice + tekst logoi)
+   ============================================================ */
+.testimonial-stars {
+    display: flex;
+    gap: 4px;
+    margin-top: 14px;
+    color: #FFB800;
+}
+.testimonial-stars i {
+    font-size: 15px;
+    line-height: 1;
+}
+
+.trusted-clients-logo .partner-logo-text {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.4;
+    letter-spacing: 0.2px;
+    color: #585B6F;
+    -webkit-transition: color 0.35s ease;
+    transition: color 0.35s ease;
+    word-break: break-word;
+}
+
+.trusted-clients-logo .partner-logo:hover .partner-logo-text,
+.trusted-clients-logo .partner-logo:focus .partner-logo-text {
+    color: #601FEB;
+}
