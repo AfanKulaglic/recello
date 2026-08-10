@@ -33,13 +33,13 @@ This is a **static site** — Vercel just serves the files, no build command nee
 | Page | Purpose |
 |---|---|
 | `index.html` | Home |
-| `usluge.html` | Services |
-| `o-nama.html` | About |
-| `kako-radi.html` | How it works |
-| `cijene.html` | Pricing |
+| `services.html` | Services |
+| `about.html` | About |
+| `how-it-works.html` | How it works |
+| `pricing.html` | Pricing |
 | `faq.html` | FAQ |
-| `dokumentacija.html` | Docs index |
+| `documentation.html` | Docs index |
 | `docs/*.html` | Documentation (quick start, chat, billing…) |
 | `verify.html` | Identity verification |
-| `kontakt.html` | Contact |
+| `contact.html` | Contact |
 | `privacy.html` / `terms.html` | Legal |

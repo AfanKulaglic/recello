@@ -2,9 +2,9 @@
    Recello — Zajedničke komponente sajta
    ------------------------------------------------------------
    Ubaci ovaj skript na KRAJU body-ja svake stranice:
-     <script src="assets/js/components.js" data-page="usluge" data-base=""></script>
+     <script src="assets/js/components.js" data-page="services" data-base=""></script>
    Za stranice u docs/ folderu koristi:
-     <script src="../assets/js/components.js" data-page="pocetak" data-base="../"></script>
+     <script src="../assets/js/components.js" data-page="getting-started" data-base="../"></script>
 
    data-page  → ključ aktivne stranice (vidi NAV ispod)
    data-base  → prefiks za assets putanje ('../' za docs/)
@@ -15,41 +15,41 @@
   const base = (script && script.getAttribute('data-base')) || '';
 
   const NAV = [
-    { key: 'pocetna', label: 'Home', href: 'index.html' },
+    { key: 'home', label: 'Home', href: 'index.html' },
     {
-      key: 'usluge', label: 'Services', href: 'usluge.html', dropdown: true,
+      key: 'services', label: 'Services', href: 'services.html', dropdown: true,
       items: [
-        { key: 'usluge', label: 'Services', desc: '24/7 answering, chat, orders and transfer', href: 'usluge.html' },
-        { key: 'o-nama', label: 'About us', desc: 'Our story and principles', href: 'o-nama.html' },
-        { key: 'kako-radi', label: 'How it works', desc: 'Live in less than a day', href: 'kako-radi.html' },
-        { key: 'cijene', label: 'Pricing', desc: 'Simple plans, no commitment', href: 'cijene.html' },
+        { key: 'services', label: 'Services', desc: '24/7 answering, chat, orders and transfer', href: 'services.html' },
+        { key: 'about', label: 'About us', desc: 'Our story and principles', href: 'about.html' },
+        { key: 'how-it-works', label: 'How it works', desc: 'Live in less than a day', href: 'how-it-works.html' },
+        { key: 'pricing', label: 'Pricing', desc: 'Simple plans, no commitment', href: 'pricing.html' },
         { key: 'faq', label: 'FAQ', desc: 'Quick answers to everything', href: 'faq.html' },
       ],
     },
     {
-      key: 'dokumentacija', label: 'Documentation', href: 'docs/pocetak.html', dropdown: true,
+      key: 'documentation', label: 'Documentation', href: 'docs/getting-started.html', dropdown: true,
       items: [
-        { key: 'pocetak', label: 'Quick start', desc: 'From zero to first call', href: 'docs/pocetak.html' },
-        { key: 'nabavite-broj', label: 'DID number', desc: 'A business number for your company', href: 'docs/nabavite-broj.html' },
+        { key: 'getting-started', label: 'Quick start', desc: 'From zero to first call', href: 'docs/getting-started.html' },
+        { key: 'getting-a-number', label: 'DID number', desc: 'A business number for your company', href: 'docs/getting-a-number.html' },
         { key: 'chat', label: 'Chat', desc: 'Teach the receptionist your data', href: 'docs/chat.html' },
-        { key: 'narudzbe-termini', label: 'Bookings', desc: 'How customers order and book', href: 'docs/narudzbe-termini.html' },
-        { key: 'mobilna-aplikacija', label: 'Mobile app', desc: 'Everything about the app', href: 'docs/mobilna-aplikacija.html' },
-        { key: 'cijene-i-paketi', label: 'Pricing', desc: 'Details of every plan', href: 'docs/cijene-i-paketi.html' },
-        { key: 'placanje', label: 'Payment & billing', desc: 'Invoices, VAT, guarantee, cancelling', href: 'docs/placanje.html' },
+        { key: 'orders-appointments', label: 'Bookings', desc: 'How customers order and book', href: 'docs/orders-appointments.html' },
+        { key: 'mobile-app', label: 'Mobile app', desc: 'Everything about the app', href: 'docs/mobile-app.html' },
+        { key: 'pricing-plans', label: 'Pricing', desc: 'Details of every plan', href: 'docs/pricing-plans.html' },
+        { key: 'payment', label: 'Payment & billing', desc: 'Invoices, VAT, guarantee, cancelling', href: 'docs/payment.html' },
       ],
     },
-    { key: 'kontakt', label: 'Contact', href: 'kontakt.html' },
+    { key: 'contact', label: 'Contact', href: 'contact.html' },
   ];
 
   const DOCS_NAV = [
-    { key: 'pocetak', label: 'Quick start', href: 'docs/pocetak.html', icon: 'rocket' },
-    { key: 'verifikacija', label: 'Identity verification', href: 'docs/verifikacija.html', icon: 'help' },
-    { key: 'nabavite-broj', label: 'Getting a DID number', href: 'docs/nabavite-broj.html', icon: 'phone-call' },
+    { key: 'getting-started', label: 'Quick start', href: 'docs/getting-started.html', icon: 'rocket' },
+    { key: 'verification', label: 'Identity verification', href: 'docs/verification.html', icon: 'help' },
+    { key: 'getting-a-number', label: 'Getting a DID number', href: 'docs/getting-a-number.html', icon: 'phone-call' },
     { key: 'chat', label: 'Chat management', href: 'docs/chat.html', icon: 'message-circle' },
-    { key: 'narudzbe-termini', label: 'Orders & appointments', href: 'docs/narudzbe-termini.html', icon: 'clipboard-list' },
-    { key: 'mobilna-aplikacija', label: 'Mobile app', href: 'docs/mobilna-aplikacija.html', icon: 'device-mobile' },
-    { key: 'cijene-i-paketi', label: 'Pricing & plans', href: 'docs/cijene-i-paketi.html', icon: 'tag' },
-    { key: 'placanje', label: 'Payment & billing', href: 'docs/placanje.html', icon: 'card' },
+    { key: 'orders-appointments', label: 'Orders & appointments', href: 'docs/orders-appointments.html', icon: 'clipboard-list' },
+    { key: 'mobile-app', label: 'Mobile app', href: 'docs/mobile-app.html', icon: 'device-mobile' },
+    { key: 'pricing-plans', label: 'Pricing & plans', href: 'docs/pricing-plans.html', icon: 'tag' },
+    { key: 'payment', label: 'Payment & billing', href: 'docs/payment.html', icon: 'card' },
     { key: 'faq-docs', label: 'FAQ', href: 'faq.html', icon: 'help-circle' },
   ];
 
@@ -197,12 +197,12 @@
                 <h5 class="mb-4">Navigation</h5>
                 <ul class="footer-nav">
                   <li><a href="${base}index.html">Home</a></li>
-                  <li><a href="${base}o-nama.html">About us</a></li>
-                  <li><a href="${base}usluge.html">Services</a></li>
-                  <li><a href="${base}kako-radi.html">How it works</a></li>
-                  <li><a href="${base}cijene.html">Pricing</a></li>
+                  <li><a href="${base}about.html">About us</a></li>
+                  <li><a href="${base}services.html">Services</a></li>
+                  <li><a href="${base}how-it-works.html">How it works</a></li>
+                  <li><a href="${base}pricing.html">Pricing</a></li>
                   <li><a href="${base}verify.html">Verify &amp; start</a></li>
-                  <li><a href="${base}kontakt.html">Contact</a></li>
+                  <li><a href="${base}contact.html">Contact</a></li>
                 </ul>
               </div>
             </div>
@@ -211,11 +211,11 @@
               <div class="footer-card">
                 <h5 class="mb-4">Features</h5>
                 <ul class="footer-nav">
-                  <li><a href="${base}usluge.html#24-7">24/7 answering</a></li>
-                  <li><a href="${base}usluge.html#chat">Chat that remembers everything</a></li>
-                  <li><a href="${base}usluge.html#narudzbe">Orders & appointments</a></li>
-                  <li><a href="${base}usluge.html#transfer">Smart call transfer</a></li>
-                  <li><a href="${base}kako-radi.html">How it works</a></li>
+                  <li><a href="${base}services.html#24-7">24/7 answering</a></li>
+                  <li><a href="${base}services.html#chat">Chat that remembers everything</a></li>
+                  <li><a href="${base}services.html#orders">Orders & appointments</a></li>
+                  <li><a href="${base}services.html#transfer">Smart call transfer</a></li>
+                  <li><a href="${base}how-it-works.html">How it works</a></li>
                 </ul>
               </div>
             </div>
@@ -224,12 +224,12 @@
               <div class="footer-card">
                 <h5 class="mb-4">Documentation</h5>
                 <ul class="footer-nav">
-                  <li><a href="${base}docs/pocetak.html">Quick start</a></li>
-                  <li><a href="${base}docs/nabavite-broj.html">Getting a DID number</a></li>
+                  <li><a href="${base}docs/getting-started.html">Quick start</a></li>
+                  <li><a href="${base}docs/getting-a-number.html">Getting a DID number</a></li>
                   <li><a href="${base}docs/chat.html">Chat commands</a></li>
-                  <li><a href="${base}docs/narudzbe-termini.html">Orders & appointments</a></li>
-                  <li><a href="${base}docs/mobilna-aplikacija.html">Mobile app</a></li>
-                  <li><a href="${base}docs/placanje.html">Payment &amp; billing</a></li>
+                  <li><a href="${base}docs/orders-appointments.html">Orders & appointments</a></li>
+                  <li><a href="${base}docs/mobile-app.html">Mobile app</a></li>
+                  <li><a href="${base}docs/payment.html">Payment &amp; billing</a></li>
                   <li><a href="${base}faq.html">FAQ</a></li>
                 </ul>
               </div>
@@ -260,7 +260,7 @@
                 <div class="footer-bottom-nav">
                   <a href="${base}privacy.html">Privacy Policy</a>
                   <a href="${base}terms.html">Terms of Service</a>
-                  <a href="${base}kontakt.html">Contact</a>
+                  <a href="${base}contact.html">Contact</a>
                 </div>
               </div>
             </div>
