@@ -6,8 +6,143 @@
     {
       "source": "/assets/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/cijene",
+      "destination": "/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/cijene.html",
+      "destination": "/pricing",
+      "permanent": true
+    },
+    {
+      "source": "/usluge",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/usluge.html",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/o-nama",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/o-nama.html",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/kontakt",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/kontakt.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/kako-radi",
+      "destination": "/how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/kako-radi.html",
+      "destination": "/how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/dokumentacija",
+      "destination": "/documentation",
+      "permanent": true
+    },
+    {
+      "source": "/dokumentacija.html",
+      "destination": "/documentation",
+      "permanent": true
+    },
+    {
+      "source": "/docs/pocetak",
+      "destination": "/docs/getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/docs/pocetak.html",
+      "destination": "/docs/getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/docs/nabavite-broj",
+      "destination": "/docs/getting-a-number",
+      "permanent": true
+    },
+    {
+      "source": "/docs/nabavite-broj.html",
+      "destination": "/docs/getting-a-number",
+      "permanent": true
+    },
+    {
+      "source": "/docs/narudzbe-termini",
+      "destination": "/docs/orders-appointments",
+      "permanent": true
+    },
+    {
+      "source": "/docs/narudzbe-termini.html",
+      "destination": "/docs/orders-appointments",
+      "permanent": true
+    },
+    {
+      "source": "/docs/mobilna-aplikacija",
+      "destination": "/docs/mobile-app",
+      "permanent": true
+    },
+    {
+      "source": "/docs/mobilna-aplikacija.html",
+      "destination": "/docs/mobile-app",
+      "permanent": true
+    },
+    {
+      "source": "/docs/cijene-i-paketi",
+      "destination": "/docs/pricing-plans",
+      "permanent": true
+    },
+    {
+      "source": "/docs/cijene-i-paketi.html",
+      "destination": "/docs/pricing-plans",
+      "permanent": true
+    },
+    {
+      "source": "/docs/placanje",
+      "destination": "/docs/payment",
+      "permanent": true
+    },
+    {
+      "source": "/docs/placanje.html",
+      "destination": "/docs/payment",
+      "permanent": true
+    },
+    {
+      "source": "/docs/verifikacija",
+      "destination": "/docs/verification",
+      "permanent": true
+    },
+    {
+      "source": "/docs/verifikacija.html",
+      "destination": "/docs/verification",
+      "permanent": true
     }
   ]
 }
