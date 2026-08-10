@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Orders and appointments — how customers order products and book appointments through the Recello receptionist and how you manage everything.">
+
+    <title>Orders and appointments | Recello — Documentation</title>
+    <link rel="shortcut icon" href="../assets/img/core-img/logo-icon.png" type="image/png">
+
+    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div id="siteHeader"></div>
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section docs-breadcrumb-hero" style="background-image: url('../assets/img/core-img/grid3.png');">
+        <div class="divider"></div>
+        <div class="container">
+            <div class="breadcrumb-content">
+                <span class="page-hero-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Recello
+                </span>
+                <h2>Orders and appointments</h2>
+                <p class="page-hero-desc">Book and receive orders automatically</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Orders and appointments</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </section>
+
+
+    <!-- Docs Layout -->
+    <section class="docs-section">
+        <div class="divider"></div>
+        <div class="container">
+            <div class="docs-layout">
+                <!-- Sidebar (components.js) -->
+                <aside class="docs-sidebar" id="docsSidebar"></aside>
+
+                <!-- Docs Content -->
+                <main class="docs-content">
+                    <nav class="docs-breadcrumb" aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="../docs/pocetak.html">Documentation</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Orders and appointments</li>
+                        </ol>
+                    </nav>
+
+                    <h1>Orders and appointments</h1>
+                    <p class="docs-lead">Recello can take orders and book appointments completely automatically, during an ordinary phone conversation. You just review the list and confirm.</p>
+
+                    <h2>How does a customer order?</h2>
+                    <ol>
+                        <li>The customer calls and says e.g. <em>"I'd like to order a camera"</em> or <em>"I want to order an installation"</em>.</li>
+                        <li>The receptionist asks a few short questions: which product, quantity, name and contact.</li>
+                        <li>She repeats the order to the customer for confirmation.</li>
+                        <li>She immediately saves the order to the database — without you doing anything.</li>
+                    </ol>
+                    <div class="docs-tip">
+                        <strong>✅ Result:</strong> The order appears in the <strong>Company → Orders</strong> tab in the app, with all customer details and call time.
+                    </div>
+
+                    <h2>How does a customer book an appointment?</h2>
+                    <ol>
+                        <li>The customer says e.g. <em>"I'd like a service appointment on Friday"</em>.</li>
+                        <li>The receptionist checks your opening hours and suggests available slots.</li>
+                        <li>The customer confirms the day and time, and the receptionist saves the appointment.</li>
+                    </ol>
+                    <div class="docs-warning">
+                        <strong>⚠️ Note:</strong> The receptionist suggests slots based on your opening hours from the profile. For more precise availability control, get in touch and we'll adjust the rules.
+                    </div>
+
+                    <h2>Managing in the app</h2>
+                    <p>In the <strong>Company</strong> tab there are two cards:</p>
+                    <ul>
+                        <li><strong>📦 Orders</strong> — a list with statuses: <em>New / Confirmed / Completed / Cancelled</em>. Tap an order to change its status.</li>
+                        <li><strong>📅 Appointments</strong> — a list of booked appointments, also with statuses.</li>
+                    </ul>
+                    <p>You can also add an order/appointment manually — e.g. when a customer orders by message instead of by phone.</p>
+
+                    <h2>Setting rules in chat</h2>
+                    <p>Want different rules? Write them in chat and the receptionist will follow them on calls:</p>
+                    <div class="docs-code">We confirm orders by phone within an hour.</div>
+                    <div class="docs-code">Appointments last 30 minutes.</div>
+                    <div class="docs-code">For orders over £100 we ask for a deposit.</div>
+
+                    <h2>Order statuses</h2>
+                    <div class="docs-table-wrap">
+                        <table class="docs-table">
+                            <thead>
+                                <tr><th>Status</th><th>Meaning</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><span class="docs-badge" style="background:#F59E0B;">New</span></td><td>Order received, awaiting processing</td></tr>
+                                <tr><td><span class="docs-badge" style="background:#601FEB;">Confirmed</span></td><td>You called the customer and confirmed</td></tr>
+                                <tr><td><span class="docs-badge" style="background:#22C55E;">Completed</span></td><td>Order delivered / appointment held</td></tr>
+                                <tr><td><span class="docs-badge" style="background:#EF4444;">Cancelled</span></td><td>The customer cancelled or you cancelled</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2>Frequently asked questions</h2>
+                    <div class="docs-faq-item">
+                        <h5>What if the customer doesn't know exactly what they want?</h5>
+                        <p>The receptionist asks a couple of simple questions. If even then she's not sure, she suggests leaving a message or calling back later.</p>
+                    </div>
+                    <div class="docs-faq-item">
+                        <h5>Do I get notified when an order arrives?</h5>
+                        <p>Orders appear in the app immediately. (Notifications for new orders are planned.)</p>
+                    </div>
+                    <div class="docs-faq-item">
+                        <h5>Can customers cancel an appointment over the phone?</h5>
+                        <p>Yes — the receptionist recognises a cancellation and updates the appointment, and you see the change in the app.</p>
+                    </div>
+
+                    <h2>Next steps</h2>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <a class="docs-next-card" href="mobilna-aplikacija.html">
+                                <strong>Mobile app →</strong>
+                                <span>Where to find everything in the app.</span>
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <a class="docs-next-card" href="cijene-i-paketi.html">
+                                <strong>Pricing and plans →</strong>
+                                <span>What's included in every plan.</span>
+                            </a>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </section>
+
+    <div id="siteFooter"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/swiper-bundle.min.js"></script>
+    <script src="../assets/js/wow.min.js"></script>
+    <script src="../assets/js/components.js" data-page="narudzbe-termini" data-base="../"></script>
+    <script src="../assets/js/active.js"></script>
+    
+</body>
+
+</html>

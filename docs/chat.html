@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Chat management — all commands for Recello: remembering information, temporary notes, website links, orders and appointments.">
+
+    <title>Chat management | Recello — Documentation</title>
+    <link rel="shortcut icon" href="../assets/img/core-img/logo-icon.png" type="image/png">
+
+    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="spinner-grow" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div id="siteHeader"></div>
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section docs-breadcrumb-hero" style="background-image: url('../assets/img/core-img/grid3.png');">
+        <div class="divider"></div>
+        <div class="container">
+            <div class="breadcrumb-content">
+                <span class="page-hero-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Recello
+                </span>
+                <h2>Chat management</h2>
+                <p class="page-hero-desc">Teach the AI everything about your business through chat</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Chat management</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </section>
+
+
+    <!-- Docs Layout -->
+    <section class="docs-section">
+        <div class="divider"></div>
+        <div class="container">
+            <div class="docs-layout">
+                <!-- Sidebar (components.js) -->
+                <aside class="docs-sidebar" id="docsSidebar"></aside>
+
+                <!-- Docs Content -->
+                <main class="docs-content">
+                    <nav class="docs-breadcrumb" aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="../docs/pocetak.html">Documentation</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Chat management</li>
+                        </ol>
+                    </nav>
+
+                    <h1>Chat management</h1>
+                    <p class="docs-lead">Chat is the fastest way to teach the receptionist about your business. Everything you write, she remembers and uses on calls — no complicated settings.</p>
+
+                    <h2>What can you do in chat?</h2>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <div class="docs-card">
+                                <h5>🧠 Remembering information</h5>
+                                <p>Write services, prices, opening hours — and she knows it on every call.</p>
+                                <div class="docs-code">Our camera "SecureCam" costs £39.</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="docs-card">
+                                <h5>🔗 Website</h5>
+                                <p>Send a link — the receptionist opens it, reads it and remembers it herself.</p>
+                                <div class="docs-code">Send me this page: https://your-company.co.uk</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="docs-card">
+                                <h5>⏰ Temporary notes</h5>
+                                <p>"We're closed today", "sale until Friday" — they expire by themselves when the time passes.</p>
+                                <div class="docs-code">We're closed today until 2pm. Valid today.</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="docs-card">
+                                <h5>📦 Orders and appointments</h5>
+                                <p>Set how you want to receive orders and book appointments.</p>
+                                <div class="docs-code">We confirm orders by phone within an hour.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>How does remembering work?</h2>
+                    <p>The receptionist understands natural language — no special commands or syntax needed. You write as if you're messaging a colleague. She recognises the intent and remembers:</p>
+                    <ul>
+                        <li><strong>Company information</strong> — description, opening hours, contacts, address</li>
+                        <li><strong>Products and services</strong> — name, price, description, details</li>
+                        <li><strong>Rules</strong> — how to receive orders, how to book appointments</li>
+                        <li><strong>Temporary notes</strong> — with a validity date</li>
+                    </ul>
+
+                    <h2>Temporary notes — in detail</h2>
+                    <p>For notes that apply only for a while, clearly state the period. Examples:</p>
+                    <div class="docs-code">From Monday to Friday we're open until 6pm.</div>
+                    <div class="docs-code">This weekend we have a sale: all cameras -20%.</div>
+                    <div class="docs-code">We're closed on 1 and 2 January.</div>
+                    <p>The receptionist remembers <strong>from when until when</strong> the note applies and uses it only during that period. After it expires, it's automatically forgotten.</p>
+                    <div class="docs-tip">
+                        <strong>💡 Tip:</strong> For permanent information (e.g. regular opening hours) use the <strong>Company</strong> tab in the app — temporary notes are for things that change.
+                    </div>
+
+                    <h2>Examples of good chat messages</h2>
+                    <div class="docs-table-wrap">
+                        <table class="docs-table">
+                            <thead>
+                                <tr><th>You write</th><th>What the receptionist remembers</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>"Our company sells security cameras"</td><td>Company description</td></tr>
+                                <tr><td>"We work Mon-Fri 8-16, Sat 9-13"</td><td>Opening hours</td></tr>
+                                <tr><td>"Camera installation costs £50"</td><td>Service price</td></tr>
+                                <tr><td>"We're closed today"</td><td>Temporary note (1 day)</td></tr>
+                                <tr><td>"Sale until 30 June: camera + installation package £99"</td><td>Discount with deadline</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2>Frequently asked questions</h2>
+                    <div class="docs-faq-item">
+                        <h5>What if I write something wrong?</h5>
+                        <p>Write "delete that" or "forget it" and repeat correctly. The receptionist understands corrections.</p>
+                    </div>
+                    <div class="docs-faq-item">
+                        <h5>Can customers see my chat messages?</h5>
+                        <p>No. Chat is your private management channel. Customers only talk by phone.</p>
+                    </div>
+                    <div class="docs-faq-item">
+                        <h5>Can I send an image in chat?</h5>
+                        <p>For now information is entered as text or a website link. Support for price-list photos is planned.</p>
+                    </div>
+
+                    <div class="docs-tip">
+                        <strong>🚀 Don't know what to write?</strong> Check the <strong>Company</strong> tab in the app — everything the receptionist has remembered is shown there, so you can see what's still missing.
+                    </div>
+
+                    <h2>Next steps</h2>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <a class="docs-next-card" href="narudzbe-termini.html">
+                                <strong>Orders and appointments →</strong>
+                                <span>How customers order over the phone.</span>
+                            </a>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <a class="docs-next-card" href="mobilna-aplikacija.html">
+                                <strong>Mobile app →</strong>
+                                <span>An overview of all tabs and features.</span>
+                            </a>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <div class="divider"></div>
+    </section>
+
+    <div id="siteFooter"></div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/swiper-bundle.min.js"></script>
+    <script src="../assets/js/wow.min.js"></script>
+    <script src="../assets/js/components.js" data-page="chat" data-base="../"></script>
+    <script src="../assets/js/active.js"></script>
+    
+</body>
+
+</html>
