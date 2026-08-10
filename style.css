@@ -4422,16 +4422,43 @@ picture.jarallax-img img {
 }
 
 .trusted-clients-logo .partner-logo {
-    border: 1px solid rgba(31, 30, 33, 0.3);
-    border-radius: 6px;
-    padding: 2rem;
+    border: 1px solid rgba(31, 30, 33, 0.12);
+    border-radius: 10px;
+    padding: 1rem;
     text-align: center;
+    background: #ffffff;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-height: 72px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+}
+
+.trusted-clients-logo .partner-logo:hover {
+    border-color: rgba(96, 31, 235, 0.45);
+    -webkit-box-shadow: 0 6px 18px rgba(96, 31, 235, 0.08);
+    box-shadow: 0 6px 18px rgba(96, 31, 235, 0.08);
+    -webkit-transform: translateY(-2px);
+    transform: translateY(-2px);
+}
+
+.trusted-clients-logo .partner-logo img {
+    max-height: 40px;
+    max-width: 85%;
+    object-fit: contain;
 }
 
 .trusted-clients-logo .partner-logo:hover img,
 .trusted-clients-logo .partner-logo:focus img {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+    -webkit-transform: scale(1.06);
+    transform: scale(1.06);
 }
 
 .trusted-company-logo {
