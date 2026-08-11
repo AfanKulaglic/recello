@@ -153,7 +153,10 @@ body,
 html {
     color: #1F1E21;
     scroll-behavior: smooth;
+    /* clip ne stvara scroll kontejner (za razliku od hidden) pa sticky radi;
+       hidden ostaje kao fallback za starije browsere */
     overflow-x: hidden;
+    overflow-x: clip;
     padding: 0 !important;
     font-family: "Inter", sans-serif;
 }
@@ -8758,9 +8761,31 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
 }
 
 /* --- Docs sidebar --- */
-.docs-sidebar-sticky {
-    position: sticky;
-    top: 120px;
+/* aside se proteže cijelom visinom reda kako bi sticky mogao pratiti scroll */
+.docs-sidebar {
+    align-self: stretch;
+    min-width: 0;
+}
+
+/* Sticky navigacija samo na desktopu gdje je sidebar u zasebnoj koloni.
+   Na mobitelu (1 kolona) sidebar je iznad sadržaja — pinovanje bi prekrilo ekran. */
+@media only screen and (min-width: 992px) {
+    .docs-sidebar-sticky {
+        position: sticky;
+        top: 130px; /* ispod fiksnog headera (sticky-on: 40px + 80px nav = 120px) */
+        max-height: calc(100vh - 150px);
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+
+    .docs-sidebar-sticky::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .docs-sidebar-sticky::-webkit-scrollbar-thumb {
+        background: rgba(96, 31, 235, 0.25);
+        border-radius: 10px;
+    }
 }
 
 .docs-sidebar-title {
