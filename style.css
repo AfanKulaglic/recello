@@ -141,7 +141,7 @@
       4.4 Theming (theme)
 --------------------- */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap");
+1,14..32,100..900&family=Outfit:wght@100..900&display=swap");
 /* Reboot CSS */
 
 * {
@@ -2406,37 +2406,37 @@ picture.jarallax-img img {
 
 /* Hero CSS */
 
-.hero-content h2 {
+.hero-content h1, .hero-content h2 {
     font-size: 36px;
     font-weight: 700;
     line-height: 1.15;
 }
 
 @media only screen and (min-width:576px) {
-    .hero-content h2 {
+    .hero-content h1, .hero-content h2 {
         font-size: 36px;
     }
 }
 
 @media only screen and (min-width:768px) {
-    .hero-content h2 {
+    .hero-content h1, .hero-content h2 {
         font-size: 48px;
     }
 }
 
 @media only screen and (min-width:992px) {
-    .hero-content h2 {
+    .hero-content h1, .hero-content h2 {
         font-size: 56px;
     }
 }
 
 @media only screen and (min-width:1400px) {
-    .hero-content h2 {
+    .hero-content h1, .hero-content h2 {
         font-size: 76px;
     }
 }
 
-.hero-content h2 span {
+.hero-content h1 span, .hero-content h1, .hero-content h2 span {
     color: #601FEB;
 }
 
@@ -2705,38 +2705,38 @@ picture.jarallax-img img {
     z-index: 10;
 }
 
-.hero-section.style-four .hero-content h2 {
+.hero-section.style-four .hero-content h1, .hero-content h2 {
     font-size: 36px;
     font-weight: 700;
     line-height: 1.15;
 }
 
 @media only screen and (min-width:576px) {
-    .hero-section.style-four .hero-content h2 {
+    .hero-section.style-four .hero-content h1, .hero-content h2 {
         font-size: 36px;
     }
 }
 
 @media only screen and (min-width:768px) {
-    .hero-section.style-four .hero-content h2 {
+    .hero-section.style-four .hero-content h1, .hero-content h2 {
         font-size: 48px;
     }
 }
 
 @media only screen and (min-width:992px) {
-    .hero-section.style-four .hero-content h2 {
+    .hero-section.style-four .hero-content h1, .hero-content h2 {
         font-size: 64px;
     }
 }
 
 @media only screen and (min-width:1200px) {
-    .hero-section.style-four .hero-content h2 {
+    .hero-section.style-four .hero-content h1, .hero-content h2 {
         font-size: 78px;
     }
 }
 
 @media only screen and (min-width:1400px) {
-    .hero-section.style-four .hero-content h2 {
+    .hero-section.style-four .hero-content h1, .hero-content h2 {
         font-size: 100px;
     }
 }
@@ -8363,7 +8363,7 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
     z-index: 2;
 }
 
-.breadcrumb-section .breadcrumb-content h2 {
+.breadcrumb-section .breadcrumb-content h1, .breadcrumb-section .breadcrumb-content h2 {
     color: #FFFFFF;
     text-align: center;
     font-size: 34px;
@@ -8373,37 +8373,37 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
 }
 
 @media only screen and (min-width:576px) {
-    .breadcrumb-section .breadcrumb-content h2 {
+    .breadcrumb-section .breadcrumb-content h1, .breadcrumb-section .breadcrumb-content h2 {
         font-size: 46px;
     }
 }
 
 @media only screen and (min-width:992px) {
-    .breadcrumb-section .breadcrumb-content h2 {
+    .breadcrumb-section .breadcrumb-content h1, .breadcrumb-section .breadcrumb-content h2 {
         font-size: 54px;
     }
 }
 
 @media only screen and (min-width:768px) {
-    .breadcrumb-section .breadcrumb-content h2 {
+    .breadcrumb-section .breadcrumb-content h1, .breadcrumb-section .breadcrumb-content h2 {
         font-size: 48px;
     }
 }
 
 @media only screen and (min-width:992px) {
-    .breadcrumb-section .breadcrumb-content h2 {
+    .breadcrumb-section .breadcrumb-content h1, .breadcrumb-section .breadcrumb-content h2 {
         font-size: 56px;
     }
 }
 
 @media only screen and (min-width:1200px) {
-    .breadcrumb-section .breadcrumb-content h2 {
+    .breadcrumb-section .breadcrumb-content h1, .breadcrumb-section .breadcrumb-content h2 {
         font-size: 64px;
     }
 }
 
 @media only screen and (min-width:1400px) {
-    .breadcrumb-section .breadcrumb-content h2 {
+    .breadcrumb-section .breadcrumb-content h1, .breadcrumb-section .breadcrumb-content h2 {
         font-size: 80px;
     }
 }
@@ -9187,7 +9187,7 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
         font-size: 18px;
     }
 
-    .breadcrumb-section .breadcrumb-content h2 {
+    .breadcrumb-section .breadcrumb-content h1, .breadcrumb-section .breadcrumb-content h2 {
         font-size: 28px;
         line-height: 1.25;
     }

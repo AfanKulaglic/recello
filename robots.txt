@@ -1,0 +1,10 @@
+# Recello — robots.txt
+# Allow all crawlers; point to the sitemap.
+
+User-agent: *
+Allow: /
+
+# Documentation redirect page — no need to index
+Disallow: /documentation
+
+Sitemap: https://recello-rouge.vercel.app/sitemap.xml
