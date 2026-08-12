@@ -7,4 +7,4 @@ Allow: /
 # Documentation redirect page — no need to index
 Disallow: /documentation
 
-Sitemap: https://recello-rouge.vercel.app/sitemap.xml
+Sitemap: https://recello.co.uk/sitemap.xml
