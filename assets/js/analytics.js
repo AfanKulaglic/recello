@@ -69,8 +69,8 @@
         if (!r.ok) throw new Error('nope');
       })
       .catch(function () {
-        // 2. Fallback: direktno na VPS backend (lokalni razvoj).
-        send('http://46.101.166.181:3001/api/track-visit');
+        // 2. Fallback: direktno na backend preko HTTPS domene (lokalni razvoj).
+        send('https://api.recello.co.uk/api/track-visit');
       });
 
     // Heartbeat na odlasku sa stranice — koliko dugo je gledao.
@@ -92,7 +92,7 @@
           if (!r.ok) throw new Error('nope');
         })
         .catch(function () {
-          send('http://46.101.166.181:3001/api/track-visit', extra);
+          send('https://api.recello.co.uk/api/track-visit', extra);
         });
     }
 

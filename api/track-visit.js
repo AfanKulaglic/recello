@@ -13,7 +13,7 @@
  * Kada se fajl ovdje nalazi, Vercel ga automatski prepoznaje kao
  * serverless funkciju na PUTANJI /api/track-visit.
  */
-const BACKEND = 'http://46.101.166.181:3001/api/track-visit';
+const BACKEND = 'https://api.recello.co.uk/api/track-visit';
 
 export default async function handler(req, res) {
   // CORS (za svaki slučaj — beacon sa druge subdomene)
