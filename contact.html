@@ -136,14 +136,20 @@
                 <!-- Contact form -->
                 <div class="col-12 col-lg-7">
                     <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">
-                        <h4 class="mb-4">Send us a message</h4>
+                        <h4 class="mb-3">Request your free demo</h4>
+                        <p class="mb-4" style="color:var(--text-para);">Tell us a little about your business — we'll reply within <strong>1 working day</strong> to book your demo.</p>
+                        <div id="formSuccess" class="docs-warning mb-4" style="background:#E7F9F0;border-radius:12px;padding:14px 16px;display:none;">
+                            <strong style="color:#0E9F6E;">✓ Request received — thank you!</strong><br>
+                            <span style="color:#374151;">We'll get back to you within 1 working day to book your free demo.</span>
+                        </div>
                         <div class="docs-warning mb-4" style="background:#F3EDFF;border-radius:12px;padding:12px 16px;">
                             <strong>🛡️ New to Recello?</strong> Every plan is protected by our <strong>14-day satisfaction guarantee</strong> (first 20 answered calls). Before you can pay, we ask you to <a href="verify.html">verify your identity</a> — this stops misuse of the guarantee.
                         </div>
-                        <form action="https://formsubmit.co/lumionoai@gmail.com" method="POST">
-                            <input type="hidden" name="_subject" value="Recello — new message from the website">
+                        <form id="contactForm" action="https://formsubmit.co/lumionoai@gmail.com" method="POST">
+                            <input type="hidden" name="_subject" value="Recello — new demo request from the website">
                             <input type="hidden" name="_template" value="table">
                             <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_next" value="https://recello.co.uk/contact.html?sent=1">
                             <div class="row g-3">
                                 <div class="col-12 col-md-6">
                                     <label class="form-label">Full name</label>
@@ -162,12 +168,12 @@
                                     <input type="tel" name="Phone" class="form-control" placeholder="+44 7X XXX XXX XX">
                                 </div>
                                 <div class="col-12">
-                                    <label class="form-label">What are you interested in?</label>
+                                    <label class="form-label">What would you like to do?</label>
                                     <select name="Enquiry type" class="form-select">
-                                        <option value="Free demo" selected>I'd like a free demo</option>
-                                        <option value="Test the receptionist on the phone">I'd like to test the receptionist on the phone</option>
-                                        <option value="Pricing and plans">I'm interested in pricing and plans</option>
-                                        <option value="Question">I have a question</option>
+                                        <option value="Request a free demo" selected>Request a free demo</option>
+                                        <option value="Test the receptionist on the phone">Test the receptionist on the phone</option>
+                                        <option value="Get pricing and plans">Get pricing and plans</option>
+                                        <option value="Talk to the team">Talk to the team</option>
                                     </select>
                                 </div>
                                 <div class="col-12">
@@ -175,7 +181,7 @@
                                     <textarea name="Message" class="form-control" rows="5" placeholder="Your message..."></textarea>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Send message <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+                                    <button type="submit" class="btn btn-primary" style="min-width:220px;">Request my free demo <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
                                 </div>
                             </div>
                         </form>
@@ -209,6 +215,14 @@
     <div id="siteFooter"></div>
 
     <!-- Scripts -->
+    <script>
+        // Pokazi uspjeh poruku nakon slanja forme (vracanje na ?sent=1)
+        if (new URLSearchParams(window.location.search).get('sent') === '1') {
+            document.getElementById('formSuccess').style.display = 'block';
+            document.getElementById('contactForm').style.display = 'none';
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    </script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/swiper-bundle.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
