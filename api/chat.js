@@ -22,6 +22,10 @@ export default async function handler(req, res) {
 
   try {
     const body = req.body || {};
+    const h = req.headers || {};
+    const forwarded = String(h['x-forwarded-for'] || '').split(',')[0].trim();
+    const realIp = forwarded || h['x-real-ip'] || '';
+
     const payload = {
       message: String(body.message || '').slice(0, 2000),
       history: Array.isArray(body.history)
@@ -30,6 +34,11 @@ export default async function handler(req, res) {
             content: String(m.content || '').slice(0, 2000),
           }))
         : [],
+      // Stranica na kojoj je postavljeno pitanje + geo podaci (za admin panel)
+      page: String(body.page || '').slice(0, 300),
+      country: String(h['x-vercel-ip-country'] || '').slice(0, 2),
+      countryName: String(h['x-vercel-ip-country-region'] || '').slice(0, 60),
+      clientIp: realIp.slice(0, 45),
     };
 
     const upstream = await fetch(BACKEND, {
