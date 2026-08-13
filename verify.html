@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Verify your identity to start with Recello — upload both sides of your ID and proof of address. Required before you can pay. Protected by our 14-day satisfaction guarantee.">
+    <meta name="description" content="Order Recello and verify your identity — upload both sides of your ID and proof of address, then pay. Protected by our 14-day satisfaction guarantee.">
 
-    <title>Identity verification | Recello</title>
+    <title>Order &amp; Verify | Recello</title>
     <link rel="stylesheet" href="assets/css/animate.css">
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
@@ -58,10 +58,10 @@
             <div class="breadcrumb-content">
                 <span class="page-hero-badge">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    Secure verification
+                    Order &amp; verify
                 </span>
-                <h1>Identity verification</h1>
-                <p class="page-hero-desc">Required before you can start and pay</p>
+                <h1>Order your service</h1>
+                <p class="page-hero-desc">Choose a plan, verify your identity — then pay</p>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -81,9 +81,14 @@
                 <div class="col-12 col-lg-10 col-xl-8">
                     <div class="p-4 p-xl-5" style="background:#fff;border-radius:24px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">
                         <div class="section-heading text-center mb-4">
-                            <span class="sub-title">Why is this needed?</span>
-                            <h2 class="mb-0">We take our guarantee seriously</h2>
-                            <p class="mt-3 mb-0">Every plan includes our <strong>14-day satisfaction guarantee</strong> (first 20 answered calls). To prevent abuse and protect every customer, we verify your identity <strong>before</strong> payment. This takes about 3 minutes.</p>
+                            <span class="sub-title">Order in 3 simple steps</span>
+                            <h2 class="mb-0">Order your service now</h2>
+                            <p class="mt-3 mb-0">Choose your plan and verify your identity now — it takes about <strong>3 minutes</strong>. Once approved, we send you a <strong>secure payment link</strong> to activate your receptionist. Every plan is covered by our <strong>14-day satisfaction guarantee</strong> (first 20 answered calls).</p>
+                        </div>
+
+                        <!-- Payment status -->
+                        <div class="docs-warning" style="background:#E8F8EF;border:1px solid #22C55E33;border-radius:12px;padding:14px 18px;margin-bottom:20px;">
+                            <strong>💳 How payment works:</strong> You don't pay on this page. After we verify your identity, we email you a <strong>secure payment link</strong> (Stripe). Your service activates as soon as payment is confirmed — usually within 1 working day.
                         </div>
 
                         <!-- Steps -->
@@ -183,9 +188,9 @@
                             </div>
 
                             <div class="d-flex flex-column flex-sm-row gap-3">
-                                <button type="submit" class="btn btn-primary flex-fill">Submit verification <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
+                                <button type="submit" class="btn btn-primary flex-fill" id="verifySubmitBtn">Submit &amp; request payment link <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></button>
                             </div>
-                            <p class="text-muted small mt-3 mb-0">📎 Tip: photos should be sharp and well-lit. Total size of all three files must stay under 10&nbsp;MB (the front &amp; back of your ID + proof of address) — the form checks this automatically.</p>
+                            <p class="text-muted small mt-3 mb-0">📎 Tip: photos should be sharp and well-lit. They are automatically compressed on your device before upload, so they upload quickly and stay well under the size limit.</p>
                         </form>
 
                         <div id="verifyOk" class="d-none mt-4 p-4 text-center" style="background:#E8F8EF;border-radius:16px;">
@@ -232,10 +237,42 @@
             });
         }
 
-        // Client-side check: FormSubmit allows max 10MB total across all files
+        // Kompresija slike u browseru: canvas -> JPEG ~800px, kvalitet 0.8.
+        // Rezultat je base64 (data URL) koji ide na backend (Realtime DB).
+        function compressImage(file) {
+            return new Promise(function (resolve) {
+                var img = new Image();
+                var url = URL.createObjectURL(file);
+                img.onload = function () {
+                    var MAX = 900;
+                    var w = img.naturalWidth;
+                    var h = img.naturalHeight;
+                    var scale = Math.min(1, MAX / Math.max(w, h));
+                    var canvas = document.createElement('canvas');
+                    canvas.width = Math.round(w * scale);
+                    canvas.height = Math.round(h * scale);
+                    var ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    URL.revokeObjectURL(url);
+                    // Ako je fajl PDF (proof of address), pošalji kao base64 bez kompresije
+                    if (file.type === 'application/pdf') {
+                        var reader = new FileReader();
+                        reader.onload = function () { resolve(reader.result); };
+                        reader.readAsDataURL(file);
+                        return;
+                    }
+                    resolve(canvas.toDataURL('image/jpeg', 0.8));
+                };
+                img.onerror = function () { URL.revokeObjectURL(url); resolve(''); };
+                img.src = url;
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             var form = document.querySelector('form[action*="formsubmit"]');
             if (!form) return;
+            var btn = document.getElementById('verifySubmitBtn');
+
             form.addEventListener('submit', function (e) {
                 var files = form.querySelectorAll('input[type=file]');
                 var total = 0;
@@ -244,10 +281,44 @@
                         total += files[i].files[j].size;
                     }
                 }
-                if (total > 10 * 1024 * 1024) {
+                if (total > 15 * 1024 * 1024) {
                     e.preventDefault();
-                    alert('Total file size must stay under 10 MB. Please take lighter photos (e.g. lower resolution) and try again.');
+                    alert('Total file size must stay under 15 MB. Please take lighter photos and try again.');
+                    return;
                 }
+
+                // Pošalji i na backend (admin panel). Ne blokira FormSubmit (email).
+                if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+                var data = {
+                    fullName: (form.querySelector('[name="Full name"]') || {}).value || '',
+                    email: (form.querySelector('[name="Email"]') || {}).value || '',
+                    phone: (form.querySelector('[name="Phone"]') || {}).value || '',
+                    company: (form.querySelector('[name="Company"]') || {}).value || '',
+                    address: (form.querySelector('[name="Address"]') || {}).value || '',
+                    plan: (form.querySelector('[name="Selected plan"]') || {}).value || '',
+                    idFront: '', idBack: '', proofAddress: ''
+                };
+                var idf = form.querySelector('[name="ID front"]').files[0];
+                var idb = form.querySelector('[name="ID back"]').files[0];
+                var proof = form.querySelector('[name="Proof of address"]').files[0];
+
+                Promise.all([
+                    idf ? compressImage(idf) : Promise.resolve(''),
+                    idb ? compressImage(idb) : Promise.resolve(''),
+                    proof ? compressImage(proof) : Promise.resolve('')
+                ]).then(function (images) {
+                    data.idFront = images[0];
+                    data.idBack = images[1];
+                    data.proofAddress = images[2];
+                    fetch('/api/verify-submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    }).catch(function () { /* tih pad — email i dalje ide */ })
+                      .finally(function () {
+                          if (btn) { btn.disabled = false; btn.textContent = 'Submit & request payment link'; }
+                      });
+                });
             });
         });
     </script>
