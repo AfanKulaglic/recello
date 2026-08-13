@@ -351,11 +351,232 @@
     } catch (e) {}
   }
 
+  // ============================================================
+  // CHAT WIDGET — "Iris", AI asistent sa prezentacijske stranice
+  // ------------------------------------------------------------
+  // Plivajući balon u donjem desnom uglu. Klik → otvori panel sa
+  // kratkom porukom, predloženim pitanjima i chatom.
+  // Poziva /api/chat (Vercel serverless proxy → backend → Groq,
+  // najjeftiniji model). Radi na svakoj stranici jer je dio components.js.
+  // ============================================================
+  function renderChatWidget() {
+    if (document.getElementById('recelloChatWidget')) return;
+
+    const style = document.createElement('style');
+    style.textContent = `
+      #recelloChatWidget { --cw-primary:#601FEB; --cw-dark:#0B0E14; --cw-gray:#6B7280; }
+      .cw-bubble {
+        position:fixed; right:24px; bottom:24px; z-index:99998;
+        width:60px; height:60px; border-radius:50%; border:none; cursor:pointer;
+        background:linear-gradient(135deg,#7B3FF2 0%,#601FEB 100%);
+        color:#fff; display:flex; align-items:center; justify-content:center;
+        box-shadow:0 8px 24px rgba(96,31,235,.45); transition:transform .2s ease;
+      }
+      .cw-bubble:hover { transform:scale(1.08); }
+      .cw-bubble svg { width:28px; height:28px; }
+      .cw-bubble .cw-badge {
+        position:absolute; top:-2px; right:-2px; width:14px; height:14px;
+        background:#22C55E; border:2px solid #fff; border-radius:50%;
+      }
+      .cw-panel {
+        position:fixed; right:24px; bottom:96px; z-index:99999;
+        width:min(380px, calc(100vw - 32px)); height:min(560px, calc(100vh - 140px));
+        background:#fff; border-radius:20px; box-shadow:0 24px 64px rgba(11,14,20,.28);
+        display:flex; flex-direction:column; overflow:hidden;
+        transform:translateY(16px) scale(.98); opacity:0; pointer-events:none;
+        transition:transform .22s ease, opacity .22s ease;
+        font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      }
+      .cw-panel.cw-open { transform:translateY(0) scale(1); opacity:1; pointer-events:auto; }
+      .cw-head {
+        background:linear-gradient(135deg,#7B3FF2 0%,#601FEB 100%); color:#fff;
+        padding:16px 18px; display:flex; align-items:center; gap:12px;
+      }
+      .cw-avatar {
+        width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.18);
+        display:flex; align-items:center; justify-content:center; flex-shrink:0;
+      }
+      .cw-avatar svg { width:22px; height:22px; }
+      .cw-head-title { font-weight:700; font-size:15px; line-height:1.2; }
+      .cw-head-sub { font-size:12px; opacity:.85; }
+      .cw-close {
+        margin-left:auto; background:none; border:none; color:#fff; cursor:pointer;
+        width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center;
+      }
+      .cw-close:hover { background:rgba(255,255,255,.15); }
+      .cw-body { flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; background:#F7F8FB; }
+      .cw-msg { max-width:85%; padding:10px 14px; border-radius:14px; font-size:14px; line-height:1.45; white-space:pre-wrap; word-wrap:break-word; }
+      .cw-msg.cw-ai { background:#fff; color:#111; border:1px solid #EDEDF2; border-bottom-left-radius:4px; align-self:flex-start; }
+      .cw-msg.cw-user { background:#601FEB; color:#fff; border-bottom-right-radius:4px; align-self:flex-end; }
+      .cw-quick { display:flex; flex-wrap:wrap; gap:8px; padding:0 16px 12px; background:#F7F8FB; }
+      .cw-quick button {
+        background:#fff; border:1px solid #E2E4EA; color:#3A3F4B; font-size:12.5px;
+        padding:7px 12px; border-radius:999px; cursor:pointer; transition:all .15s ease;
+      }
+      .cw-quick button:hover { border-color:#601FEB; color:#601FEB; background:#F4EFFF; }
+      .cw-inputbar { display:flex; gap:8px; padding:12px; border-top:1px solid #EDEDF2; background:#fff; }
+      .cw-inputbar input {
+        flex:1; border:1px solid #E2E4EA; border-radius:12px; padding:10px 14px; font-size:14px; outline:none;
+      }
+      .cw-inputbar input:focus { border-color:#601FEB; box-shadow:0 0 0 3px rgba(96,31,235,.12); }
+      .cw-send {
+        width:42px; height:42px; border-radius:12px; border:none; cursor:pointer;
+        background:#601FEB; color:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0;
+        transition:background .15s ease;
+      }
+      .cw-send:hover { background:#4B16C4; }
+      .cw-send:disabled { opacity:.5; cursor:not-allowed; }
+      .cw-send svg { width:18px; height:18px; }
+      .cw-typing { display:inline-flex; gap:4px; padding:4px 2px; }
+      .cw-typing span { width:7px; height:7px; border-radius:50%; background:#A0A4B0; animation:cwBlink 1.2s infinite; }
+      .cw-typing span:nth-child(2) { animation-delay:.15s; } .cw-typing span:nth-child(3) { animation-delay:.3s; }
+      @keyframes cwBlink { 0%,80%,100% { opacity:.25; } 40% { opacity:1; } }
+      @media (max-width:480px) {
+        .cw-panel { right:16px; bottom:88px; left:16px; width:auto; }
+        .cw-bubble { right:16px; bottom:16px; }
+      }
+    `;
+    document.head.appendChild(style);
+
+    const chatIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+    const closeIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    const sparkIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.7L19.6 10l-5.7 1.9L12 17.6l-1.9-5.7L4.4 10l5.7-1.3z"/><path d="M19 15l.9 2.6L22.5 18.5l-2.6.9L19 22l-.9-2.6-2.6-.9 2.6-.9z"/></svg>';
+    const sendIcon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+
+    const widget = document.createElement('div');
+    widget.id = 'recelloChatWidget';
+    widget.innerHTML = `
+      <button class="cw-bubble" id="cwBubble" aria-label="Chat with us">
+        ${chatIcon}<span class="cw-badge"></span>
+      </button>
+      <div class="cw-panel" id="cwPanel">
+        <div class="cw-head">
+          <div class="cw-avatar">${sparkIcon}</div>
+          <div>
+            <div class="cw-head-title">Iris — Recello Assistant</div>
+            <div class="cw-head-sub">Typically replies instantly</div>
+          </div>
+          <button class="cw-close" id="cwClose" aria-label="Close chat">${closeIcon}</button>
+        </div>
+        <div class="cw-body" id="cwBody"></div>
+        <div class="cw-quick" id="cwQuick"></div>
+        <div class="cw-inputbar">
+          <input id="cwInput" type="text" placeholder="Ask about plans, prices, setup..." maxlength="2000" autocomplete="off">
+          <button class="cw-send" id="cwSend" aria-label="Send message">${sendIcon}</button>
+        </div>
+      </div>`;
+    document.body.appendChild(widget);
+
+    const panel = document.getElementById('cwPanel');
+    const body = document.getElementById('cwBody');
+    const input = document.getElementById('cwInput');
+    const quick = document.getElementById('cwQuick');
+    const bubble = document.getElementById('cwBubble');
+    let history = [];
+    let opened = false;
+
+    const QUICK = [
+      'How much does it cost?',
+      'How does it work?',
+      'How do I order?',
+      'Is there a guarantee?',
+    ];
+
+    function addMsg(role, text) {
+      const div = document.createElement('div');
+      div.className = 'cw-msg cw-' + role;
+      div.textContent = text;
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+      return div;
+    }
+
+    function addTyping() {
+      const div = document.createElement('div');
+      div.className = 'cw-msg cw-ai';
+      div.innerHTML = '<span class="cw-typing"><span></span><span></span><span></span></span>';
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+      return div;
+    }
+
+    function showQuick() {
+      quick.innerHTML = '';
+      QUICK.forEach((q) => {
+        const b = document.createElement('button');
+        b.textContent = q;
+        b.addEventListener('click', () => {
+          quick.innerHTML = '';
+          send(q);
+        });
+        quick.appendChild(b);
+      });
+    }
+
+    function open() {
+      opened = true;
+      panel.classList.add('cw-open');
+      bubble.innerHTML = closeIcon;
+      if (!body.children.length) {
+        addMsg('ai', 'Hi! 👋 I\'m Iris, the Recello assistant. Ask me anything about our AI receptionist — plans, prices, setup or ordering. I\'ll keep it short and helpful!');
+        showQuick();
+      }
+      setTimeout(() => input.focus(), 250);
+    }
+
+    function close() {
+      opened = false;
+      panel.classList.remove('cw-open');
+      bubble.innerHTML = chatIcon;
+    }
+
+    async function send(text) {
+      const msg = text.trim();
+      if (!msg) return;
+      addMsg('user', msg);
+      history.push({ role: 'user', content: msg });
+      input.value = '';
+      const typing = addTyping();
+      const sendBtn = document.getElementById('cwSend');
+      if (sendBtn) sendBtn.disabled = true;
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: msg, history: history.slice(-8) }),
+        });
+        const data = await res.json().catch(() => ({}));
+        typing.remove();
+        if (res.ok && data.ok && data.reply) {
+          history.push({ role: 'assistant', content: data.reply });
+          addMsg('ai', data.reply);
+        } else {
+          addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email lumionoai@gmail.com and we\'ll get back to you.');
+        }
+      } catch (err) {
+        typing.remove();
+        addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email lumionoai@gmail.com and we\'ll get back to you.');
+      } finally {
+        if (sendBtn) sendBtn.disabled = false;
+        showQuick();
+      }
+    }
+
+    bubble.addEventListener('click', () => (opened ? close() : open()));
+    document.getElementById('cwClose').addEventListener('click', close);
+    document.getElementById('cwSend').addEventListener('click', () => send(input.value));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') send(input.value);
+    });
+  }
+
   // Run immediately (script is at the end of body): header/footer/sidebar must exist before active.js
   renderHeader();
   renderFooter();
   renderDocsSidebar();
   renderBackToTop();
   renderCookieBanner();
+  renderChatWidget();
   initMobileDropdown();
 })();
