@@ -161,7 +161,11 @@
     const btn = document.createElement('button');
     btn.id = 'scrollTopButton';
     btn.className = 'softora-scrolltop scrolltop-hide';
-    btn.style.bottom = '96px'; // iznad chat balona (isti donji desni ugao)
+    // Pozicija: IZNAD chat balona (oba su u donjem desnom uglu), a z-index
+    // veći od cookie bannera da ga banner nikad ne prekrije.
+    btn.style.bottom = '96px';
+    btn.style.right = '32px';
+    btn.style.zIndex = '99997';
     btn.setAttribute('aria-label', 'Back to top');
     btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>`;
     btn.addEventListener('click', () => {
@@ -332,10 +336,12 @@
     if (document.getElementById('cookieBanner')) return;
     const banner = document.createElement('div');
     banner.id = 'cookieBanner';
-    banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:99996;background:#0B0E14;color:#fff;padding:16px 20px;box-shadow:0 -6px 24px rgba(0,0,0,.25);font-size:14px;';
+    // Kompaktna kartica u DONJEM LIJEVOM uglu — ne dira desni ugao gdje su
+    // chat balon i back-to-top dugme. Z-index ispod njih (99994).
+    banner.style.cssText = 'position:fixed;bottom:16px;left:16px;z-index:99994;max-width:480px;background:#0B0E14;color:#fff;padding:14px 18px;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.25);font-size:13.5px;line-height:1.45;';
     banner.innerHTML = `
-      <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
-        <div style="flex:1 1 300px;">
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div>
           <strong>🍪 Cookies</strong> — this site uses only strictly necessary cookies to function. We do not set analytics or marketing cookies without your consent. See our <a href="${base}privacy.html" style="color:#C9B4FF;text-decoration:underline;">Privacy Policy</a>.
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
