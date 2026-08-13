@@ -161,6 +161,7 @@
     const btn = document.createElement('button');
     btn.id = 'scrollTopButton';
     btn.className = 'softora-scrolltop scrolltop-hide';
+    btn.style.bottom = '96px'; // iznad chat balona (isti donji desni ugao)
     btn.setAttribute('aria-label', 'Back to top');
     btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>`;
     btn.addEventListener('click', () => {
@@ -331,7 +332,7 @@
     if (document.getElementById('cookieBanner')) return;
     const banner = document.createElement('div');
     banner.id = 'cookieBanner';
-    banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#0B0E14;color:#fff;padding:16px 20px;box-shadow:0 -6px 24px rgba(0,0,0,.25);font-size:14px;';
+    banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:99996;background:#0B0E14;color:#fff;padding:16px 20px;box-shadow:0 -6px 24px rgba(0,0,0,.25);font-size:14px;';
     banner.innerHTML = `
       <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
         <div style="flex:1 1 300px;">
