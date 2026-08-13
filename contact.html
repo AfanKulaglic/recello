@@ -222,6 +222,29 @@
             document.getElementById('contactForm').style.display = 'none';
             window.history.replaceState({}, document.title, window.location.pathname);
         }
+
+        // Prije slanja na FormSubmit (email), proslijedi upit i na backend
+        // (https://api.recello.co.uk) da bude vidljiv u admin panelu.
+        // AJAX ne blokira slanje — mail ide normalno preko FormSubmit-a.
+        (function () {
+            var form = document.getElementById('contactForm');
+            if (!form) return;
+            form.addEventListener('submit', function () {
+                var data = {
+                    fullName: (form.querySelector('[name="Full name"]') || {}).value || '',
+                    company: (form.querySelector('[name="Company"]') || {}).value || '',
+                    email: (form.querySelector('[name="Email"]') || {}).value || '',
+                    phone: (form.querySelector('[name="Phone"]') || {}).value || '',
+                    enquiryType: (form.querySelector('[name="Enquiry type"]') || {}).value || '',
+                    message: (form.querySelector('[name="Message"]') || {}).value || ''
+                };
+                fetch('/api/contact-lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                }).catch(function () { /* tih pad — mail i dalje ide */ });
+            });
+        })();
     </script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/swiper-bundle.min.js"></script>
