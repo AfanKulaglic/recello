@@ -242,6 +242,20 @@
 
             <div class="col-12 col-sm-6 col-lg">
               <div class="footer-card">
+                <h5 class="mb-4">Guides</h5>
+                <ul class="footer-nav">
+                  <li><a href="${base}guides/ai-receptionist-for-small-businesses.html">AI receptionist for small businesses</a></li>
+                  <li><a href="${base}guides/virtual-receptionist-cost.html">Virtual receptionist cost UK</a></li>
+                  <li><a href="${base}guides/ai-phone-answering-service.html">AI phone answering service</a></li>
+                  <li><a href="${base}guides/ai-receptionist-for-tradespeople.html">For plumbers &amp; tradespeople</a></li>
+                  <li><a href="${base}guides/ai-receptionist-for-salons.html">For salons &amp; barbers</a></li>
+                  <li><a href="${base}guides/missed-calls-cost.html">What missed calls cost you</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg">
+              <div class="footer-card">
                 <h5 class="mb-4">Contact</h5>
                 <ul class="footer-nav">
                   <li><a href="mailto:lumionoai@gmail.com">lumionoai@gmail.com</a></li>
