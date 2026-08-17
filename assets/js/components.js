@@ -258,7 +258,7 @@
               <div class="footer-card">
                 <h5 class="mb-4">Contact</h5>
                 <ul class="footer-nav">
-                  <li><a href="mailto:lumionoai@gmail.com">lumionoai@gmail.com</a></li>
+                  <li><a href="mailto:recello.ai@hotmail.com">recello.ai@hotmail.com</a></li>
                   <li><a href="tel:+38770330049">+387 70 330 049</a></li>
                   <li><a href="#">United Kingdom</a></li>
                 </ul>
@@ -573,11 +573,11 @@
           history.push({ role: 'assistant', content: data.reply });
           addMsg('ai', data.reply);
         } else {
-          addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email lumionoai@gmail.com and we\'ll get back to you.');
+          addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email recello.ai@hotmail.com and we\'ll get back to you.');
         }
       } catch (err) {
         typing.remove();
-        addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email lumionoai@gmail.com and we\'ll get back to you.');
+        addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email recello.ai@hotmail.com and we\'ll get back to you.');
       } finally {
         if (sendBtn) sendBtn.disabled = false;
         showQuick();
