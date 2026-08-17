@@ -9308,6 +9308,40 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
     white-space: nowrap;
 }
 
+/* Snizena cijena — prikaz stare cijene (precrtano) + 30% OFF badge */
+.pricing-was-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.pricing-was-row .pricing-was {
+    font-family: "Outfit", sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #9AA0B4;
+    text-decoration: line-through;
+}
+
+.pricing-was-row .pricing-off {
+    font-family: "Outfit", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    background: linear-gradient(90deg, #22C55E 0%, #16A34A 100%);
+    padding: 3px 11px;
+    border-radius: 20px;
+    box-shadow: 0 3px 10px rgba(34, 197, 94, 0.35);
+}
+
+.pricing-featured .pricing-was-row .pricing-was {
+    color: rgba(255, 255, 255, 0.6);
+}
+
 .pricing-price span {
     font-size: 16px;
     font-weight: 500;
