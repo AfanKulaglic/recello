@@ -77,8 +77,8 @@
                 <div class="col-12 col-md-9 col-xl-7">
                     <div class="section-heading text-center">
                         <span class="sub-title">Branded email studio</span>
-                        <h2 class="mb-0">Send an email that looks like it came from a team of fifty</h2>
-                        <p class="mt-3 mb-0">Choose who receives it, write your message, add up to three call-to-action buttons — every email is delivered with the Recello logo, brand colours and signature.</p>
+                        <h2 class="mb-0">Send an offer that sounds human, not like an advert</h2>
+                        <p class="mt-3 mb-0">Use it to pitch Recello to businesses — she answers every call, keeps everything in her <strong>Ledger</strong>, and it's genuinely affordable. Start with the offer template below, then personalise it for each company.</p>
                     </div>
                 </div>
             </div>
@@ -98,6 +98,13 @@
                 <div class="col-12 col-lg-6">
                     <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">
                         <form id="mailForm">
+                            <div class="mb-3">
+                                <button type="button" id="loadOfferBtn" class="btn" style="width:100%;border:1px solid #601FEB;color:#601FEB;background:#F7F4FF;font-weight:600;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px;"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM22 6l-10 7L2 6"/></svg>
+                                    Load offer template — then just add their name
+                                </button>
+                                <div class="form-text" id="offerBtnHint" style="margin-top:6px;">Fills the form with a ready-to-send proposal email. Write the recipient's name + company, tweak if you like, and send.</div>
+                            </div>
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label class="form-label">From</label>
@@ -167,7 +174,7 @@
                             </div>
                             <iframe id="previewFrame" title="Email preview" style="width:100%;height:560px;border:0;background:#F7F7FC;" sandbox="allow-same-origin"></iframe>
                         </div>
-                        <p class="mt-3 mb-0" style="color:#8A8FA3;font-size:13px;">Emails arrive from <strong style="color:#585B6F;">hello@recello.co.uk</strong> (or <strong style="color:#585B6F;">sales@recello.co.uk</strong> for outreach) with the Recello logo, brand colours and signature — so your recipients always recognise who wrote to them.</p>
+                        <p class="mt-3 mb-0" style="color:#8A8FA3;font-size:13px;">Emails arrive from <strong style="color:#585B6F;">hello@recello.co.uk</strong> (or <strong style="color:#585B6F;">sales@recello.co.uk</strong> for outreach) with the Recello logo, brand colours and signature — so your recipients always recognise who wrote to them. The <strong style="color:#585B6F;">Ledger</strong> is Recello's shared record book: she writes into it from every call, you can edit it directly or tell her over chat.</p>
                     </div>
                 </div>
             </div>
@@ -271,6 +278,31 @@
                     this.style.display = 'none';
                 }
                 schedulePreview();
+            });
+
+            document.getElementById('loadOfferBtn').addEventListener('click', function () {
+                document.getElementById('mailFrom').value = 'sales';
+                document.getElementById('mailSubject').value = 'A better way to answer your calls — without hiring more staff';
+                document.getElementById('mailTitle').value = 'Your AI receptionist is ready to answer every call';
+                document.getElementById('mailName').value = '';
+                document.getElementById('mailCompany').value = '';
+                document.getElementById('mailMessage').value =
+                    'I run Recello — we build an AI phone receptionist for small businesses like yours.\n\n' +
+                    'It answers every call, takes messages, books appointments, and notes down exactly what each customer needs — so you never miss an enquiry.\n\n' +
+                    "It's genuinely affordable: a fraction of the cost of hiring even part-time staff.\n\n" +
+                    "And here's the part I think you'll like most: you don't just fill in forms. You chat with your AI secretary like a colleague. She sets up and organises all your customer information in one place — your Ledger — and you can read, edit or add anything yourself, any time, with or without her.\n\n" +
+                    'Happy to show you a 5-minute demo on your own phone number.\n\n' +
+                    'Best regards,\nThe Recello Team';
+
+                buttonsWrap.innerHTML = '';
+                document.getElementById('addButton').style.display = 'inline-block';
+                buttonsWrap.appendChild(buttonRow('Book a free demo', 'https://recello.co.uk/contact'));
+                buttonsWrap.appendChild(buttonRow('See how it works', 'https://recello.co.uk'));
+
+                var hint = document.getElementById('offerBtnHint');
+                hint.innerHTML = 'Template loaded. Now write <strong>their name</strong> + <strong>company</strong> — a personalised "Dear Name," will be added automatically.';
+
+                refreshPreview();
             });
 
             ['mailTo', 'mailSubject', 'mailTitle', 'mailName', 'mailCompany', 'mailMessage'].forEach(function (id) {
