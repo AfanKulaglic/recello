@@ -101,11 +101,27 @@
                             <div class="row g-3">
                                 <div class="col-12">
                                     <label class="form-label">From</label>
-                                    <input type="text" class="form-control" value="Recello <hello@recello.co.uk>" disabled style="background:#F7F7FC;color:#585B6F;">
+                                    <select id="mailFrom" class="form-select" style="background:#F7F7FC;">
+                                        <option value="hello" selected>Recello &lt;hello@recello.co.uk&gt;</option>
+                                        <option value="sales">Recello Sales &lt;sales@recello.co.uk&gt;</option>
+                                    </select>
+                                    <div class="form-text">Use sales@ for outreach to companies, hello@ for general messages.</div>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">To (recipient)</label>
                                     <input type="email" id="mailTo" class="form-control" placeholder="name@company.co.uk" required>
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-12 col-sm-6">
+                                        <label class="form-label">Their name <span style="color:#8A8FA3;font-weight:400;">(optional)</span></label>
+                                        <input type="text" id="mailName" class="form-control" placeholder="e.g. John">
+                                        <div class="form-text">Adds a personal "Dear John," greeting — replies are much more likely.</div>
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <label class="form-label">Company <span style="color:#8A8FA3;font-weight:400;">(optional)</span></label>
+                                        <input type="text" id="mailCompany" class="form-control" placeholder="e.g. Acme Ltd">
+                                        <div class="form-text">Shown in the greeting: "Dear John from Acme Ltd,".</div>
+                                    </div>
                                 </div>
                                 <div class="col-12">
                                     <label class="form-label">Subject</label>
@@ -151,7 +167,7 @@
                             </div>
                             <iframe id="previewFrame" title="Email preview" style="width:100%;height:560px;border:0;background:#F7F7FC;" sandbox="allow-same-origin"></iframe>
                         </div>
-                        <p class="mt-3 mb-0" style="color:#8A8FA3;font-size:13px;">Every email arrives from <strong style="color:#585B6F;">hello@recello.co.uk</strong> with the Recello logo, brand colours and signature — so your customers always recognise who wrote to them.</p>
+                        <p class="mt-3 mb-0" style="color:#8A8FA3;font-size:13px;">Emails arrive from <strong style="color:#585B6F;">hello@recello.co.uk</strong> (or <strong style="color:#585B6F;">sales@recello.co.uk</strong> for outreach) with the Recello logo, brand colours and signature — so your recipients always recognise who wrote to them.</p>
                     </div>
                 </div>
             </div>
@@ -220,6 +236,8 @@
                     to: to || 'preview@recello.co.uk',
                     subject: subject || 'A message from Recello',
                     title: title,
+                    name: document.getElementById('mailName').value.trim(),
+                    company: document.getElementById('mailCompany').value.trim(),
                     message: message,
                     buttons: collectButtons(),
                     preview: true
@@ -255,7 +273,7 @@
                 schedulePreview();
             });
 
-            ['mailTo', 'mailSubject', 'mailTitle', 'mailMessage'].forEach(function (id) {
+            ['mailTo', 'mailSubject', 'mailTitle', 'mailName', 'mailCompany', 'mailMessage'].forEach(function (id) {
                 document.getElementById(id).addEventListener('input', schedulePreview);
             });
 
@@ -279,6 +297,9 @@
                         to: to,
                         subject: subject,
                         title: title,
+                        name: document.getElementById('mailName').value.trim(),
+                        company: document.getElementById('mailCompany').value.trim(),
+                        from: document.getElementById('mailFrom').value,
                         message: message,
                         buttons: collectButtons()
                     })

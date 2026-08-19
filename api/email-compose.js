@@ -30,6 +30,9 @@ export default async function handler(req, res) {
         to: String(body.to || '').slice(0, 200),
         subject: String(body.subject || '').slice(0, 300),
         title: String(body.title || '').slice(0, 200),
+        name: String(body.name || '').slice(0, 200),
+        company: String(body.company || '').slice(0, 200),
+        from: body.from === 'sales' ? 'sales' : undefined,
         message: String(body.message || '').slice(0, 5000),
         buttons: Array.isArray(body.buttons)
           ? body.buttons.slice(0, 3).map((b) => ({
