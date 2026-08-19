@@ -258,7 +258,9 @@
               <div class="footer-card">
                 <h5 class="mb-4">Contact</h5>
                 <ul class="footer-nav">
-                  <li><a href="mailto:recello.ai@hotmail.com">recello.ai@hotmail.com</a></li>
+                  <li><a href="mailto:hello@recello.co.uk">hello@recello.co.uk</a></li>
+                  <li><a href="mailto:support@recello.co.uk">support@recello.co.uk</a></li>
+                  <li><a href="mailto:sales@recello.co.uk">sales@recello.co.uk</a></li>
                   <li><a href="tel:+38770330049">+387 70 330 049</a></li>
                   <li><a href="#">United Kingdom</a></li>
                 </ul>
@@ -573,11 +575,11 @@
           history.push({ role: 'assistant', content: data.reply });
           addMsg('ai', data.reply);
         } else {
-          addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email recello.ai@hotmail.com and we\'ll get back to you.');
+          addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email hello@recello.co.uk and we\'ll get back to you.');
         }
       } catch (err) {
         typing.remove();
-        addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email recello.ai@hotmail.com and we\'ll get back to you.');
+        addMsg('ai', 'Sorry, I could not reach the assistant just now. Please use the contact form or email hello@recello.co.uk and we\'ll get back to you.');
       } finally {
         if (sendBtn) sendBtn.disabled = false;
         showQuick();
