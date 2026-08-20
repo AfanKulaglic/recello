@@ -4515,6 +4515,10 @@ picture.jarallax-img img {
     background-repeat: no-repeat;
 }
 
+.showcase-section .section-heading h2 {
+    color: #FFFFFF;
+}
+
 .showcase-section::before {
     content: "";
     position: absolute;
