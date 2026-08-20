@@ -7584,6 +7584,7 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
 .process-section {
     position: relative;
     z-index: 1;
+    padding-bottom: 90px;
 }
 
 .process-section .bg-shape {
