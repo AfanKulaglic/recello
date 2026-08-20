@@ -191,6 +191,19 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Sent history -->
+            <div class="mt-4">
+                <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">
+                    <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+                        <h5 class="mb-0">Sent history</h5>
+                        <button type="button" id="historyRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>
+                    </div>
+                    <div id="historyWrap">
+                        <div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading…</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="divider"></div>
     </section>
@@ -244,6 +257,41 @@
                 clearTimeout(previewTimer);
                 previewTimer = setTimeout(refreshPreview, 400);
             }
+
+            function loadHistory() {
+                var wrap = document.getElementById('historyWrap');
+                wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading…</div>';
+                fetch('/api/email-history')
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    if (!d.ok || !Array.isArray(d.items)) {
+                        wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">History unavailable.</div>';
+                        return;
+                    }
+                    if (!d.items.length) {
+                        wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">No emails sent yet.</div>';
+                        return;
+                    }
+                    var rows = d.items.map(function (m) {
+                        var d2 = new Date(m.ts);
+                        var dateStr = d2.toLocaleDateString() + ' ' + d2.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        var who = m.name || m.company || m.to;
+                        return '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #F0EDF9;font-size:14px;flex-wrap:wrap;">' +
+                            '<div style="min-width:0;">' +
+                                '<div style="color:#0B0E14;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + who + '</div>' +
+                                '<div style="color:#8A8FA3;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + m.to + (m.subject ? ' — ' + m.subject : '') + '</div>' +
+                            '</div>' +
+                            '<div style="color:#8A8FA3;font-size:13px;white-space:nowrap;">' + dateStr + '</div>' +
+                        '</div>';
+                    }).join('');
+                    wrap.innerHTML = '<div style="font-size:13px;color:#585B6F;margin-bottom:8px;">Total sent: <strong style="color:#0B0E14;">' + d.items.length + '</strong></div>' + rows;
+                })
+                .catch(function () {
+                    wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">History unavailable.</div>';
+                });
+            }
+
+            document.getElementById('historyRefresh').addEventListener('click', loadHistory);
 
             function refreshPreview() {
                 var to = document.getElementById('mailTo').value.trim();
@@ -378,6 +426,8 @@
 
             // Initial empty state preview
             frame.srcdoc = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8A8FA3;font-family:Inter,sans-serif;font-size:14px;">Write a message — the branded preview appears here.</div>';
+
+            loadHistory();
         });
     </script>
 </body>
