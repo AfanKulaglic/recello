@@ -41,6 +41,8 @@ export default async function handler(req, res) {
             }))
           : undefined,
         preview: Boolean(body.preview),
+        logoPosition: body.logoPosition === 'left' || body.logoPosition === 'right' ? body.logoPosition : undefined,
+        topbar: Boolean(body.topbar),
       }),
     });
 
