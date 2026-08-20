@@ -7373,6 +7373,33 @@ textarea.form-control {
     border-radius: 18px;
 }
 
+.process-card .process-thumb .process-icon {
+    width: 100%;
+    height: 195px;
+    border-radius: 18px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#601FEB), to(#C700B1));
+    background: linear-gradient(180deg, #601FEB 0%, #C700B1 100%);
+    color: #FFFFFF;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.process-card:hover .process-thumb .process-icon {
+    -webkit-box-shadow: 0 14px 30px rgba(96, 31, 235, 0.35);
+    box-shadow: 0 14px 30px rgba(96, 31, 235, 0.35);
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+}
+
 /* Podstranice (inner-page): veće slike u proces karticama */
 .inner-page .process-card .process-thumb {
     max-width: 280px;
