@@ -4509,10 +4509,10 @@ picture.jarallax-img img {
 .showcase-section {
     position: relative;
     z-index: 1;
-}
-
-.showcase-section.style-two {
-    background-image: none;
+    background-image: url("assets/img/core-img/grid2.jpg");
+    background-size: contain;
+    background-position: center bottom;
+    background-repeat: no-repeat;
 }
 
 .showcase-section::before {
@@ -4522,7 +4522,7 @@ picture.jarallax-img img {
     left: 0;
     height: 240px;
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: #222222;
     z-index: -1;
 }
 
