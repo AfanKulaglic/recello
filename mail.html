@@ -12,6 +12,24 @@
     <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
     <link rel="stylesheet" href="style.css">
 
+    <!-- /mail brand override: bordo (Dark maroon #800000) umjesto ljubičaste -->
+    <style>
+        /* Glavni akcenti */
+        .btn-primary { background-color: #800000 !important; border-color: #800000 !important; }
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active { background-color: #5A0000 !important; border-color: #5A0000 !important; }
+        .section-heading .sub-title { color: #800000 !important; }
+        .section-heading .sub-title::before { background-color: #800000 !important; }
+        .section-heading h2, .section-heading h3 { color: #800000 !important; }
+        .breadcrumb-section .breadcrumb-item a:hover, .breadcrumb-section .breadcrumb-item.active { color: #800000 !important; }
+        .page-hero-badge svg { stroke: #800000 !important; }
+
+        /* Form fokus i checkbox */
+        .form-control:focus, .form-select:focus { border-color: #800000 !important; box-shadow: 0 0 0 0.2rem rgba(128, 0, 0, 0.15) !important; }
+        .form-check-input:checked { background-color: #800000 !important; border-color: #800000 !important; }
+        a { color: #800000 !important; }
+        .text-primary { color: #800000 !important; }
+    </style>
+
     <!-- Branding: favicon + Open Graph -->
     <link rel="icon" type="image/png" sizes="64x64" href="assets/img/core-img/favicon.png">
     <link rel="shortcut icon" href="assets/img/core-img/favicon.png" type="image/png">
@@ -99,7 +117,7 @@
                     <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">
                         <form id="mailForm">
                             <div class="mb-3">
-                                <button type="button" id="loadOfferBtn" class="btn" style="width:100%;border:1px solid #601FEB;color:#601FEB;background:#F7F4FF;font-weight:600;">
+                                <button type="button" id="loadOfferBtn" class="btn" style="width:100%;border:1px solid #800000;color:#800000;background:#F8EEEE;font-weight:600;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px;"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zM22 6l-10 7L2 6"/></svg>
                                     Load offer template — then just add their name
                                 </button>
@@ -160,7 +178,7 @@
                                 <div class="col-12">
                                     <label class="form-label">Call-to-action buttons <span style="color:#8A8FA3;font-weight:400;">(up to 3)</span></label>
                                     <div id="buttonsWrap" class="d-flex flex-column gap-2"></div>
-                                    <button type="button" id="addButton" class="btn btn-sm mt-2" style="border:1px dashed #601FEB;color:#601FEB;background:#F7F4FF;">+ Add button</button>
+                                    <button type="button" id="addButton" class="btn btn-sm mt-2" style="border:1px dashed #800000;color:#800000;background:#F8EEEE;">+ Add button</button>
                                 </div>
 
                                 <div class="col-12">
