@@ -9893,7 +9893,7 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
     color: #601FEB;
 }
 
-/* ===== The Notebook section ===== */
+/* ===== The Library section ===== */
 .text-gradient {
     background: linear-gradient(135deg, #601FEB, #C700B1);
     -webkit-background-clip: text;
@@ -9902,7 +9902,7 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
     color: transparent;
 }
 
-.notebook-step-icon {
+.Library-step-icon {
     width: 195px;
     height: 195px;
     border-radius: 18px;
@@ -9912,12 +9912,12 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
     align-items: center;
     justify-content: center;
 }
-.notebook-step-icon svg {
+.Library-step-icon svg {
     width: 72px;
     height: 72px;
 }
 
-.notebook-highlight {
+.Library-highlight {
     background: #FFFFFF;
     border-radius: 20px;
     padding: 28px;
@@ -9926,11 +9926,11 @@ body:not(.inner-page) .process-wrap .col-12:nth-child(2) .process-card .process-
 }
 
 @media (max-width: 767.98px) {
-    .notebook-step-icon {
+    .Library-step-icon {
         width: 150px;
         height: 150px;
     }
-    .notebook-step-icon svg {
+    .Library-step-icon svg {
         width: 56px;
         height: 56px;
     }
