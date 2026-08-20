@@ -124,9 +124,9 @@
             </div>
             <div class="right-side">
               <div class="social-nav d-flex align-items-center gap-3">
-                <a href="#" aria-label="Facebook">${icon('facebook')}</a>
+                <a href="https://www.facebook.com/profile.php?id=61592861595686" target="_blank" rel="noopener" aria-label="Facebook">${icon('facebook')}</a>
                 <a href="https://www.instagram.com/recello_ai_secretary/" target="_blank" rel="noopener" aria-label="Instagram">${icon('instagram')}</a>
-                <a href="#" aria-label="LinkedIn">${icon('linkedin')}</a>
+                <a href="https://www.linkedin.com/in/recello-secretary-3aa183429/" target="_blank" rel="noopener" aria-label="LinkedIn">${icon('linkedin')}</a>
               </div>
             </div>
           </div>
@@ -190,9 +190,9 @@
                 </a>
                 <p class="mb-0">Recello — a smart AI receptionist that answers for you 24/7. AI Secretary for your business.</p>
                 <div class="social-nav">
-                  <a href="#" aria-label="Facebook">${icon('facebook')}</a>
+                  <a href="https://www.facebook.com/profile.php?id=61592861595686" target="_blank" rel="noopener" aria-label="Facebook">${icon('facebook')}</a>
                   <a href="https://www.instagram.com/recello_ai_secretary/" target="_blank" rel="noopener" aria-label="Instagram">${icon('instagram')}</a>
-                  <a href="#" aria-label="LinkedIn">${icon('linkedin')}</a>
+                  <a href="https://www.linkedin.com/in/recello-secretary-3aa183429/" target="_blank" rel="noopener" aria-label="LinkedIn">${icon('linkedin')}</a>
                 </div>
               </div>
             </div>
