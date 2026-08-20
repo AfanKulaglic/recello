@@ -26,8 +26,15 @@
         /* Form fokus i checkbox */
         .form-control:focus, .form-select:focus { border-color: #800000 !important; box-shadow: 0 0 0 0.2rem rgba(128, 0, 0, 0.15) !important; }
         .form-check-input:checked { background-color: #800000 !important; border-color: #800000 !important; }
-        a { color: #800000 !important; }
         .text-primary { color: #800000 !important; }
+
+        /* Linkovi samo u sadržaju /mail (ne u navbaru/footeru) */
+        .breadcrumb-section a { color: #800000 !important; }
+        .about-section a:not(.btn):not(.navbar-brand) { color: #800000 !important; }
+        #mailForm a, #historyWrap a { color: #800000 !important; }
+
+        /* Logo u navbaru na /mail = isti kao donji logo na kraju maila */
+        .navbar-brand img { max-height: 44px !important; }
     </style>
 
     <!-- Branding: favicon + Open Graph -->
@@ -444,6 +451,13 @@
 
             // Initial empty state preview
             frame.srcdoc = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#8A8FA3;font-family:Inter,sans-serif;font-size:14px;">Write a message — the branded preview appears here.</div>';
+
+            // Logo u navbaru na /mail = donji logo iz email šablona
+            var brandImg = document.querySelector('.navbar-brand img');
+            if (brandImg) {
+                brandImg.src = 'https://i.ibb.co/1JYqBvbV/Gemini-Generated-Image-q49l3fq49l3fq49l-preview-rev-1.png';
+                brandImg.style.maxHeight = '44px';
+            }
 
             loadHistory();
         });
