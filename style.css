@@ -4519,6 +4519,19 @@ picture.jarallax-img img {
     color: #FFFFFF;
 }
 
+.showcase-section .section-heading h2 .benefits-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    -webkit-transition: all 350ms;
+    transition: all 350ms;
+}
+
+.showcase-section .section-heading h2 .benefits-link:hover,
+.showcase-section .section-heading h2 .benefits-link:focus {
+    color: #BBA0FF;
+    text-decoration: underline;
+}
+
 .showcase-section::before {
     content: "";
     position: absolute;
