@@ -30,7 +30,7 @@
       key: 'documentation', label: 'Documentation', href: 'docs/getting-started.html', dropdown: true,
       items: [
         { key: 'getting-started', label: 'Quick start', desc: 'From zero to first call', href: 'docs/getting-started.html' },
-        { key: 'getting-a-number', label: 'DID number', desc: 'A business number for your company', href: 'docs/getting-a-number.html' },
+        { key: 'getting-a-number', label: 'Phone number', desc: 'Your own number, or get one with our help', href: 'docs/getting-a-number.html' },
         { key: 'chat', label: 'Chat', desc: 'Teach the receptionist your data', href: 'docs/chat.html' },
         { key: 'orders-appointments', label: 'Bookings', desc: 'How customers order and book', href: 'docs/orders-appointments.html' },
         { key: 'mobile-app', label: 'Mobile app', desc: 'Everything about the app', href: 'docs/mobile-app.html' },
@@ -44,8 +44,7 @@
   const DOCS_NAV = [
     { key: 'getting-started', label: 'Quick start', href: 'docs/getting-started.html', icon: 'rocket' },
     { key: 'benefits', label: 'Benefits', href: 'docs/benefits.html', icon: 'star' },
-    { key: 'verification', label: 'Identity verification', href: 'docs/verification.html', icon: 'help' },
-    { key: 'getting-a-number', label: 'Getting a DID number', href: 'docs/getting-a-number.html', icon: 'phone-call' },
+    { key: 'getting-a-number', label: 'Phone number', href: 'docs/getting-a-number.html', icon: 'phone-call' },
     { key: 'chat', label: 'Chat management', href: 'docs/chat.html', icon: 'message-circle' },
     { key: 'orders-appointments', label: 'Orders & appointments', href: 'docs/orders-appointments.html', icon: 'clipboard-list' },
     { key: 'mobile-app', label: 'Mobile app', href: 'docs/mobile-app.html', icon: 'device-mobile' },
@@ -145,11 +144,11 @@
             <div class="collapse navbar-collapse" id="softoraNav">
               <ul class="navbar-nav navbar-nav-scroll">${navItems}</ul>
               <div class="d-flex align-items-center mt-4 mt-lg-0 ms-lg-4 navbar-mobile-cta">
-                <a href="${base}verify.html" class="btn btn-primary">Get started ${icon('arrow')}</a>
+                <a href="${base}contact.html" class="btn btn-primary">Get started ${icon('arrow')}</a>
               </div>
             </div>
             <div class="navbar-desktop-cta">
-              <a href="${base}verify.html" class="btn btn-primary">Get started ${icon('arrow')}</a>
+              <a href="${base}contact.html" class="btn btn-primary">Get started ${icon('arrow')}</a>
             </div>
           </div>
         </nav>
@@ -208,8 +207,7 @@
                   <li><a href="${base}services.html">Services</a></li>
                   <li><a href="${base}how-it-works.html">How it works</a></li>
                   <li><a href="${base}pricing.html">Pricing</a></li>
-                  <li><a href="${base}verify.html">Verify &amp; start</a></li>
-                  <li><a href="${base}contact.html">Contact</a></li>
+                  <li><a href="${base}contact.html">Order &amp; contact</a></li>
                 </ul>
               </div>
             </div>
@@ -232,7 +230,7 @@
                 <h5 class="mb-4">Documentation</h5>
                 <ul class="footer-nav">
                   <li><a href="${base}docs/getting-started.html">Quick start</a></li>
-                  <li><a href="${base}docs/getting-a-number.html">Getting a DID number</a></li>
+                  <li><a href="${base}docs/getting-a-number.html">Phone number guide</a></li>
                   <li><a href="${base}docs/chat.html">Chat commands</a></li>
                   <li><a href="${base}docs/orders-appointments.html">Orders & appointments</a></li>
                   <li><a href="${base}docs/mobile-app.html">Mobile app</a></li>
@@ -283,6 +281,7 @@
                 <div class="footer-bottom-nav">
                   <a href="${base}privacy.html">Privacy Policy</a>
                   <a href="${base}terms.html">Terms of Service</a>
+                  <a href="${base}refunds.html">Refund Policy</a>
                   <a href="${base}contact.html">Contact</a>
                 </div>
               </div>

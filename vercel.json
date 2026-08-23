@@ -15,6 +15,26 @@
   ],
   "redirects": [
     {
+      "source": "/verify",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/verify.html",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/docs/verification",
+      "destination": "/docs/getting-started",
+      "permanent": true
+    },
+    {
+      "source": "/docs/verification.html",
+      "destination": "/docs/getting-started",
+      "permanent": true
+    },
+    {
       "source": "/cijene",
       "destination": "/pricing",
       "permanent": true
