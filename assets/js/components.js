@@ -33,7 +33,7 @@
         { key: 'getting-a-number', label: 'Phone number', desc: 'Your own number, or get one with our help', href: 'docs/getting-a-number.html' },
         { key: 'chat', label: 'Chat', desc: 'Teach the receptionist your data', href: 'docs/chat.html' },
         { key: 'orders-appointments', label: 'Bookings', desc: 'How customers order and book', href: 'docs/orders-appointments.html' },
-        { key: 'mobile-app', label: 'Mobile app', desc: 'Everything about the app', href: 'docs/mobile-app.html' },
+        { key: 'mobile-app', label: 'Mobile & Web app', desc: 'Everything about the app (and the web version)', href: 'docs/mobile-app.html' },
         { key: 'pricing-plans', label: 'Pricing', desc: 'Details of every plan', href: 'docs/pricing-plans.html' },
         { key: 'payment', label: 'Payment & billing', desc: 'Invoices, VAT, guarantee, cancelling', href: 'docs/payment.html' },
       ],
@@ -233,7 +233,9 @@
                   <li><a href="${base}docs/getting-a-number.html">Phone number guide</a></li>
                   <li><a href="${base}docs/chat.html">Chat commands</a></li>
                   <li><a href="${base}docs/orders-appointments.html">Orders & appointments</a></li>
-                  <li><a href="${base}docs/mobile-app.html">Mobile app</a></li>
+                  <li><a href="${base}docs/mobile-app.html">Mobile &amp; Web app</a></li>
+                  <li><a href="/app">Open web app →</a></li>
+                  <li><a href="/admin">Admin dashboard →</a></li>
                   <li><a href="${base}docs/payment.html">Payment &amp; billing</a></li>
                   <li><a href="${base}faq.html">FAQ</a></li>
                 </ul>
