@@ -144,11 +144,11 @@
             <div class="collapse navbar-collapse" id="softoraNav">
               <ul class="navbar-nav navbar-nav-scroll">${navItems}</ul>
               <div class="d-flex align-items-center mt-4 mt-lg-0 ms-lg-4 navbar-mobile-cta">
-                <a href="${base}contact.html" class="btn btn-primary">Get started ${icon('arrow')}</a>
+                <a href="${base}order.html" class="btn btn-primary">Get started ${icon('arrow')}</a>
               </div>
             </div>
             <div class="navbar-desktop-cta">
-              <a href="${base}contact.html" class="btn btn-primary">Get started ${icon('arrow')}</a>
+              <a href="${base}order.html" class="btn btn-primary">Get started ${icon('arrow')}</a>
             </div>
           </div>
         </nav>
