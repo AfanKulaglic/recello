@@ -230,6 +230,18 @@
                 </div>
             </div>
         </div>
+<div class="card mb-4">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">Automated outreach</h5>
+                        <button type="button" id="outreachRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>
+                    </div>
+                    <div style="font-size:13px;color:#585B6F;margin-bottom:8px;">Who received an automated cold email, what it said, and whether it was sent successfully.</div>
+                    <div id="outreachWrap">
+                        <div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div>
+                    </div>
+                </div>
+            </div>
         <div class="divider"></div>
     </section>
 
@@ -317,6 +329,44 @@
             }
 
             document.getElementById('historyRefresh').addEventListener('click', loadHistory);
+
+            function loadOutreach() {
+                var wrap = document.getElementById('outreachWrap');
+                wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div>';
+                fetch('/api/outreach-status')
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    if (!d.ok || !Array.isArray(d.items)) {
+                        wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Outreach status unavailable.</div>';
+                        return;
+                    }
+                    if (!d.items.length) {
+                        wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">No automated emails sent yet.</div>';
+                        return;
+                    }
+                    var rows = d.items.map(function (m) {
+                        var d2 = new Date(m.ts);
+                        var dateStr = d2.toLocaleDateString() + ' ' + d2.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        var badge = m.ok
+                            ? '<span style="color:#1A7F37;font-weight:600;">Sent</span>'
+                            : '<span style="color:#C81E1E;font-weight:600;" title="' + (m.error ? m.error.replace(/"/g, '&quot;') : '') + '">Failed</span>';
+                        return '<div style="padding:10px 0;border-bottom:1px solid #F0EDF9;font-size:14px;">' +
+                            '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;">' +
+                                '<div style="min-width:0;color:#0B0E14;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + (m.company || m.ownerName || m.to) + '</div>' +
+                                '<div style="color:#8A8FA3;font-size:13px;white-space:nowrap;">' + dateStr + ' &middot; ' + badge + '</div>' +
+                            '</div>' +
+                            '<div style="color:#585B6F;font-size:13px;margin-top:2px;">To: <strong>' + m.to + '</strong> &mdash; ' + m.subject + '</div>' +
+                            (m.body ? '<div style="color:#8A8FA3;font-size:12px;margin-top:4px;white-space:pre-wrap;">' + m.body.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' : '') +
+                        '</div>';
+                    }).join('');
+                    wrap.innerHTML = '<div style="font-size:13px;color:#585B6F;margin-bottom:8px;">Total automated emails: <strong style="color:#0B0E14;">' + d.items.length + '</strong></div>' + rows;
+                })
+                .catch(function () {
+                    wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Outreach status unavailable.</div>';
+                });
+            }
+
+            document.getElementById('outreachRefresh').addEventListener('click', loadOutreach);
 
             function refreshPreview() {
                 var to = document.getElementById('mailTo').value.trim();
@@ -464,6 +514,7 @@
             }
 
             loadHistory();
+            loadOutreach();
         });
     </script>
 </body>
