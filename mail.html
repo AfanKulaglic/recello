@@ -356,6 +356,13 @@
             }
             document.getElementById('tabManualBtn').addEventListener('click', function () { showMailTab('manual'); });
             document.getElementById('tabAutoBtn').addEventListener('click', function () { showMailTab('auto'); });document.getElementById('outreachRefresh').addEventListener('click', loadOutreach);
+            function togglePv(btn) {
+                var pv = btn.closest("[data-pv]");
+                var f = pv.querySelector("iframe");
+                if (pv.style.display === "none") { f.srcdoc = decodeURIComponent(btn.getAttribute("data-html")); pv.style.display = "block"; btn.textContent = "Zatvori"; }
+                else { pv.style.display = "none"; btn.textContent = "Preview"; }
+            }
+
             function loadPlan() {
                 var wrap = document.getElementById("planWrap");
                 wrap.innerHTML = "<div style=\"color:#8A8FA3;font-size:14px;padding:12px 0;\">Loading plan&hellip;</div>";
@@ -366,20 +373,24 @@
                         wrap.innerHTML = "<div style=\"color:#8A8FA3;font-size:14px;padding:12px 0;\">Plan nije dostupan.</div>";
                         return;
                     }
-                    var rows = d.items.map(function (m, idx) {
+                    var rows = d.items.map(function (m) {
+                        var pv = "<div data-pv style=\"display:none;margin-top:8px;\"><iframe style=\"width:100%;height:520px;border:1px solid #E9E4F7;border-radius:12px;background:#fff;\"></iframe></div>";
+                        var enc = encodeURIComponent(m.html);
+                        var btn = "<button type=\"button\" class=\"btn btn-sm\" style=\"border:1px solid #E9E4F7;color:#800000;background:#fff;\" onclick=\"togglePv(this)\" data-html=\"" + enc + "\">Preview</button>";
                         return "<div style=\"padding:10px 0;border-bottom:1px solid #F0EDF9;font-size:14px;\">"
                             + "<div style=\"display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;\">"
                             + "<div style=\"min-width:0;color:#0B0E14;font-weight:600;\">" + (m.company || m.ownerName || m.to) + "</div>"
-                            + "<button type=\"button\" class=\"btn btn-sm\" style=\"border:1px solid #E9E4F7;color:#800000;background:#fff;\" onclick=\"(function(btn){var pv=btn.closest('[data-pv]');var f=pv.querySelector('iframe');if(pv.style.display==='none'){f.srcdoc=decodeURIComponent(btn.getAttribute('data-html'));pv.style.display='block';btn.textContent='Zatvori';}else{pv.style.display='none';btn.textContent='Preview';}})(this)\" data-html=\"" + encodeURIComponent(m.html) + "\">Preview</button>"
+                            + btn
                             + "</div>"
                             + "<div style=\"color:#585B6F;font-size:13px;margin-top:2px;\">To: <strong>" + m.to + "</strong> &mdash; " + m.subject + "</div>"
-                            + "<div data-pv style=\"display:none;margin-top:8px;\"><iframe style=\"width:100%;height:520px;border:1px solid #E9E4F7;border-radius:12px;background:#fff;\"></iframe></div>" + "</div>";
+                            + pv
+                        + "</div>";
                     }).join("");
-                    wrap.innerHTML = rows;
+                    wrap.innerHTML = "<div style=\"font-size:13px;color:#585B6F;margin-bottom:8px;\">Planirano za sljedeću dostavu: <strong style=\"color:#0B0E14;\">" + d.items.length + "</strong> emailova (još nije poslano)</div>" + rows;
                 })
                 .catch(function () { wrap.innerHTML = "<div style=\"color:#C81E1E;font-size:14px;padding:12px 0;\">Plan unavailable.</div>"; });
             }
-            document.getElementById("outreachRefresh").addEventListener("click", loadPlan);
+document.getElementById("outreachRefresh").addEventListener("click", loadPlan);
 
             function refreshPreview() {
                 var to = document.getElementById('mailTo').value.trim();
