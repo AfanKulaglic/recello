@@ -362,6 +362,7 @@
                 if (pv.style.display === "none") { f.srcdoc = decodeURIComponent(btn.getAttribute("data-html")); pv.style.display = "block"; btn.textContent = "Zatvori"; }
                 else { pv.style.display = "none"; btn.textContent = "Preview"; }
             }
+            window.togglePv = togglePv;
 
             function loadPlan() {
                 var wrap = document.getElementById("planWrap");
