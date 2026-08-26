@@ -64,7 +64,34 @@
         @media (max-width: 576px) {
             .tab-pill { padding:7px 14px; font-size:13px; }
             #outreachWrap > div > div, #historyWrap > div { word-break:break-word; }
-        }</style>
+        }
+        /* ===== V2 polish — hero, glow, animacije ===== */
+        .mail-dash { position: relative; }
+        .mail-dash::before { content:''; position:absolute; inset:-40px -20px auto; height:190px; background:
+          radial-gradient(600px 200px at 20% 0%, rgba(128,0,0,.10), transparent 60%),
+          radial-gradient(500px 180px at 85% 10%, rgba(255,119,64,.08), transparent 60%); filter:blur(2px); pointer-events:none; z-index:-1; }
+        .dash-card { transition: transform .25s ease, box-shadow .25s ease; backdrop-filter:saturate(1.1); }
+        .dash-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(11,14,20,.10); }
+        .dash-card.dash-accent { background: linear-gradient(135deg,#800000 0%, #5A0000 100%); box-shadow:0 12px 30px rgba(128,0,0,.35); }
+        .dash-num { font-variant-numeric: tabular-nums; }
+        .dash-bar span { background: linear-gradient(90deg,#fff,rgba(255,255,255,.75)); }
+        .dash-status { border-radius:14px; }
+        /* Tabovi kao segmenti */
+        .tab-pill { padding:9px 22px; font-size:13.5px; letter-spacing:.01em; box-shadow:0 2px 8px rgba(11,14,20,.05); transition:all .2s ease; }
+        .tab-pill:hover { transform:translateY(-1px); }
+        .tab-pill.active { background:linear-gradient(135deg,#800000,#A00000); border-color:transparent; box-shadow:0 6px 18px rgba(128,0,0,.32); }
+        /* Preview iframe shadow */
+        [data-pv] iframe { box-shadow:0 10px 28px rgba(11,14,20,.10) !important; }
+        /* History rows hover */
+        #historyWrap > div:hover, #outreachWrap > div > div:hover { background:#FBFAFE; }
+        /* Fade-in animacija za sekcije */
+        @keyframes riseIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+        .mail-dash, .mail-dash + * { animation: riseIn .45s ease both; }
+        /* Hero badge chips */
+        .mail-hero-badges { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:14px; }
+        .mhb-chip { display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); color:#fff; padding:7px 16px; border-radius:99px; font-size:13px; backdrop-filter:blur(6px); }
+        .mhb-chip strong { font-weight:700; }
+        .mhb-green { border-color:rgba(14,159,110,.5); background:rgba(14,159,110,.18); }</style>
 
     <!-- Branding: favicon + Open Graph -->
     <link rel="icon" type="image/png" sizes="64x64" href="assets/img/core-img/favicon.png">
@@ -118,6 +145,11 @@
                         <li class="breadcrumb-item active" aria-current="page">Mail</li>
                     </ol>
                 </nav>
+                                    <div class="mail-hero-badges">
+                        <span class="mhb-chip"><strong id="hbSent">–</strong> poslano danas</span>
+                        <span class="mhb-chip"><strong id="hbNext">–</strong> sljedeće slanje</span>
+                        <span class="mhb-chip mhb-green"><span class="dot-ok"></span> sistem aktivan</span>
+                    </div>
             </div>
         </div>
         <div class="divider"></div>
@@ -461,6 +493,7 @@ row g-4 justify-content-center align-items-start">
                     document.getElementById("stCats").textContent = d.categoriesCount;
                     var pct = Math.round(100 * d.sentToday / Math.max(1, d.target));
                     document.getElementById("stBar").style.width = pct + "%";
+                    var hbS = document.getElementById("hbSent"); var hbN = document.getElementById("hbNext"); if (hbS) hbS.textContent = d.sentToday; if (hbN) hbN.textContent = document.getElementById("stNext").textContent;
                     var dot, label;
                     if (d.failedToday === 0 && d.sentToday >= 0) { dot = "dot-ok"; }
                     else if (d.failedToday > 0) { dot = "dot-warn"; } else { dot = "dot-err"; }
