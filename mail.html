@@ -38,7 +38,33 @@
     
         /* /mail tabovi (Manual vs Automated outreach) */
         .tab-pill { border:1px solid #E9E4F7; background:#fff; color:#585B6F; padding:8px 18px; border-radius:30px; font-size:14px; font-weight:600; }
-        .tab-pill.active { border-color:#800000; background:#800000; color:#fff; }</style>
+        .tab-pill.active { border-color:#800000; background:#800000; color:#fff; }
+        /* ===== /mail dashboard — dnevna statistika (responzivno) ===== */
+        .mail-dash { width: 100%; }
+        .dash-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        @media (max-width: 900px) { .dash-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .dash-grid { grid-template-columns: 1fr; } }
+        .dash-card { background:#fff; border-radius:16px; padding:18px 20px; box-shadow:0 6px 24px rgba(11,14,20,.06); border:1px solid #F0EDF9; }
+        .dash-card.dash-accent { background:#800000; border-color:#800000; }
+        .dash-card.dash-accent .dash-label, .dash-card.dash-accent .dash-sub { color:rgba(255,255,255,.85); }
+        .dash-card.dash-accent .dash-num { color:#fff; }
+        .dash-num { font-size:34px; font-weight:800; color:#0B0E14; line-height:1.1; letter-spacing:-0.5px; }
+        .dash-num-sm { font-size:22px; padding-top:8px; }
+        .dash-label { font-size:13px; font-weight:600; color:#585B6F; margin-top:4px; }
+        .dash-sub { font-size:12px; color:#8A8FA3; margin-top:2px; }
+        .dash-bar { height:6px; background:rgba(255,255,255,.25); border-radius:99px; margin-top:10px; overflow:hidden; }
+        .dash-bar span { display:block; height:100%; width:0%; background:#fff; border-radius:99px; transition:width .6s ease; }
+        .dash-status { font-size:12.5px; color:#585B6F; background:#fff; border:1px solid #F0EDF9; border-radius:12px; padding:10px 16px; margin-top:12px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+        .dot-ok, .dot-warn, .dot-err { width:9px; height:9px; border-radius:50%; display:inline-block; }
+        .dot-ok { background:#0E9F6E; box-shadow:0 0 0 3px rgba(14,159,110,.15); }
+        .dot-warn { background:#D97706; box-shadow:0 0 0 3px rgba(217,119,6,.15); }
+        .dot-err { background:#C81E1E; box-shadow:0 0 0 3px rgba(200,30,30,.15); }
+
+        /* Tabovi i historijske kartice — bolji mobile prikaz */
+        @media (max-width: 576px) {
+            .tab-pill { padding:7px 14px; font-size:13px; }
+            #outreachWrap > div > div, #historyWrap > div { word-break:break-word; }
+        }</style>
 
     <!-- Branding: favicon + Open Graph -->
     <link rel="icon" type="image/png" sizes="64x64" href="assets/img/core-img/favicon.png">
@@ -121,7 +147,35 @@
                 <span style="color:#374151;" id="formErrorMsg">Please check the address and try again.</span>
             </div>
 
-            <div class="row g-4 justify-content-center align-items-start">
+            <div class="
+            <!-- /mail DASHBOARD — dnevna statistika i kapacitet -->
+            <div class="mail-dash mb-4" style="max-width:980px;margin-left:auto;margin-right:auto;">
+                <div class="dash-grid">
+                    <div class="dash-card dash-accent">
+                        <div class="dash-num" id="stSentToday">–</div>
+                        <div class="dash-label">Poslano danas</div>
+                        <div class="dash-sub">od <span id="stTarget">25</span> planiranih</div>
+                        <div class="dash-bar"><span id="stBar"></span></div>
+                    </div>
+                    <div class="dash-card">
+                        <div class="dash-num" id="stRemaining">–</div>
+                        <div class="dash-label">Preostalo danas</div>
+                        <div class="dash-sub">svaki radni dan 25 novih</div>
+                    </div>
+                    <div class="dash-card">
+                        <div class="dash-num dash-num-sm" id="stNext">–</div>
+                        <div class="dash-label">Sljedeće slanje</div>
+                        <div class="dash-sub">09:30 UK + parne minute</div>
+                    </div>
+                    <div class="dash-card">
+                        <div class="dash-num" id="stTotal">–</div>
+                        <div class="dash-label">Ukupno poslano</div>
+                        <div class="dash-sub"><span id="stCats">22</span> kategorija &middot; mali biznisi</div>
+                    </div>
+                </div>
+                <div class="dash-status" id="stSystem">Status sistema: provjeravam&hellip;</div>
+            </div>
+row g-4 justify-content-center align-items-start">
                 <!-- Composer form -->
                 <div class="col-12 col-lg-6">
                     <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">
@@ -391,7 +445,37 @@
                 })
                 .catch(function () { wrap.innerHTML = "<div style=\"color:#C81E1E;font-size:14px;padding:12px 0;\">Plan unavailable.</div>"; });
             }
-document.getElementById("outreachRefresh").addEventListener("click", loadPlan);
+
+            function loadStats() {
+                fetch("/api/outreach-stats")
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    if (!d.ok) { document.getElementById("stSystem").innerHTML = "Statistika trenutno nedostupna."; return; }
+                    document.getElementById("stSentToday").textContent = d.sentToday;
+                    document.getElementById("stTarget").textContent = d.target;
+                    document.getElementById("stRemaining").textContent = d.remainingToday;
+                    var n = new Date(d.nextRunAt);
+                    var dayNames = ["Ned","Pon","Uto","Sri","Cet","Pet","Sub"];
+                    document.getElementById("stNext").textContent = dayNames[n.getDay()] + " " + ("0" + (n.getHours())).slice(-2) + ":" + ("0" + n.getMinutes()).slice(-2);
+                    document.getElementById("stTotal").textContent = d.totalSent;
+                    document.getElementById("stCats").textContent = d.categoriesCount;
+                    var pct = Math.round(100 * d.sentToday / Math.max(1, d.target));
+                    document.getElementById("stBar").style.width = pct + "%";
+                    var dot, label;
+                    if (d.failedToday === 0 && d.sentToday >= 0) { dot = "dot-ok"; }
+                    else if (d.failedToday > 0) { dot = "dot-warn"; } else { dot = "dot-err"; }
+                    if (d.remainingToday === 0 && d.sentToday > 0) { label = "Danasnji ciklus zavrsen — svi mailovi poslani."; }
+                    else if (d.sentToday === 0 && d.remainingToday > 0) { label = "Danas ceka prvo slanje."; }
+                    else { label = "Slanje u toku (stagger po parnim minutama)."; }
+                    document.getElementById("stSystem").innerHTML = '<span class="' + dot + '"></span> Sistem radi. ' + label + ' Sljedece: <strong>' + document.getElementById("stNext").textContent + '</strong> UK.';
+                })
+                .catch(function () {
+                    document.getElementById("stSystem").innerHTML = '<span class="dot-err"></span> Statistika nedostupna (backend provjera pala).';
+                });
+            }
+            loadStats();
+            setInterval(loadStats, 60000);
+            document.getElementById("outreachRefresh").addEventListener("click", loadPlan);
 
             function refreshPreview() {
                 var to = document.getElementById('mailTo').value.trim();
