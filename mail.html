@@ -220,7 +220,9 @@
                 </div>
             </div>
 
-            <div class="mt-4">    <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">        <div class="d-flex gap-2 mb-3">            <button type="button" id="tabManualBtn" class="tab-pill active">My emails / history</button>            <button type="button" id="tabAutoBtn" class="tab-pill">Automated outreach</button>        </div>        <div id="mailManualPane">            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">                <h5 class="mb-0">Emails you composed manually</h5>                <button type="button" id="historyRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>            <div id="historyWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div></div>        </div>        <div id="mailAutoPane" style="display:none;">            <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">                <h5 class="mb-0">Automated outreach &mdash; who received, what it said, sent/failed</h5>                <button type="button" id="outreachRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>            <div id="outreachWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div></div>        </div>    </div></div>        <div class="divider"></div>
+            <div class="mt-4">    <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">        <div class="d-flex gap-2 mb-3">            <button type="button" id="tabManualBtn" class="tab-pill active">My emails / history</button>            <button type="button" id="tabAutoBtn" class="tab-pill">Automated outreach</button>        </div>        <div id="mailManualPane">            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">                <h5 class="mb-0">Emails you composed manually</h5>                <button type="button" id="historyRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>            <div id="historyWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div></div>        </div>        <div id="mailAutoPane" style="display:none;">            <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">                <h5 class="mb-0">Automated outreach &mdash; who received, what it said, sent/failed</h5>                <button type="button" id="outreachRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>                                <div style="font-size:13px;color:#585B6F;margin-bottom:8px;">Planirano za sljedeću dostavu (sutra) &mdash; klikni <strong>Preview</strong> da vidiš kako će email izgledati:</div>
+                    <div id="planWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading plan&hellip;</div></div>
+<div id="outreachWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div></div>        </div>    </div></div>        <div class="divider"></div>
     </section>
 
     <div id="siteFooter"></div>
@@ -354,6 +356,30 @@
             }
             document.getElementById('tabManualBtn').addEventListener('click', function () { showMailTab('manual'); });
             document.getElementById('tabAutoBtn').addEventListener('click', function () { showMailTab('auto'); });document.getElementById('outreachRefresh').addEventListener('click', loadOutreach);
+            function loadPlan() {
+                var wrap = document.getElementById("planWrap");
+                wrap.innerHTML = "<div style=\"color:#8A8FA3;font-size:14px;padding:12px 0;\">Loading plan&hellip;</div>";
+                fetch("/api/outreach-plan")
+                .then(function (r) { return r.json(); })
+                .then(function (d) {
+                    if (!d.ok || !Array.isArray(d.items) || !d.items.length) {
+                        wrap.innerHTML = "<div style=\"color:#8A8FA3;font-size:14px;padding:12px 0;\">Plan nije dostupan.</div>";
+                        return;
+                    }
+                    var rows = d.items.map(function (m, idx) {
+                        return "<div style=\"padding:10px 0;border-bottom:1px solid #F0EDF9;font-size:14px;\">"
+                            + "<div style=\"display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;\">"
+                            + "<div style=\"min-width:0;color:#0B0E14;font-weight:600;\">" + (m.company || m.ownerName || m.to) + "</div>"
+                            + "<button type=\"button\" class=\"btn btn-sm\" style=\"border:1px solid #E9E4F7;color:#800000;background:#fff;\" onclick=\"(function(btn){var pv=btn.closest('[data-pv]');var f=pv.querySelector('iframe');if(pv.style.display==='none'){f.srcdoc=decodeURIComponent(btn.getAttribute('data-html'));pv.style.display='block';btn.textContent='Zatvori';}else{pv.style.display='none';btn.textContent='Preview';}})(this)\" data-html=\"" + encodeURIComponent(m.html) + "\">Preview</button>"
+                            + "</div>"
+                            + "<div style=\"color:#585B6F;font-size:13px;margin-top:2px;\">To: <strong>" + m.to + "</strong> &mdash; " + m.subject + "</div>"
+                            + "<div data-pv style=\"display:none;margin-top:8px;\"><iframe style=\"width:100%;height:520px;border:1px solid #E9E4F7;border-radius:12px;background:#fff;\"></iframe></div>" + "</div>";
+                    }).join("");
+                    wrap.innerHTML = rows;
+                })
+                .catch(function () { wrap.innerHTML = "<div style=\"color:#C81E1E;font-size:14px;padding:12px 0;\">Plan unavailable.</div>"; });
+            }
+            document.getElementById("outreachRefresh").addEventListener("click", loadPlan);
 
             function refreshPreview() {
                 var to = document.getElementById('mailTo').value.trim();
@@ -502,6 +528,7 @@
 
             loadHistory();
             loadOutreach();
+            loadPlan();
         });
     </script>
 </body>
