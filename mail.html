@@ -337,7 +337,7 @@ row g-4 justify-content-center align-items-start">
                 </div>
             </div>
 
-            <div class="mt-4">    <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">        <div class="d-flex gap-2 mb-3">            <button type="button" id="tabManualBtn" class="tab-pill active">My emails / history</button>            <button type="button" id="tabAutoBtn" class="tab-pill">Automated outreach</button>        </div>        <div id="mailManualPane">            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">                <h5 class="mb-0">Emails you composed manually</h5>                <button type="button" id="historyRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>            <div id="historyWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div></div>        </div>        <div id="mailAutoPane" style="display:none;">            <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">                <h5 class="mb-0">Automated outreach &mdash; who received, what it said, sent/failed</h5>                <button type="button" id="outreachRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>                                <div style="font-size:13px;color:#585B6F;margin-bottom:8px;">Planirano za sljedeću dostavu (sutra) &mdash; klikni <strong>Preview</strong> da vidiš kako će email izgledati:</div>
+            <div id="dbgBanner" style="background:#FFF8E6;border:1px dashed #D9A504;border-radius:10px;padding:8px 14px;margin:14px auto;font-size:12px;max-width:980px;display:none;"><strong style="color:#585B6F;">Debug:</strong></div><div class="mt-4">    <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">        <div class="d-flex gap-2 mb-3">            <button type="button" id="tabManualBtn" class="tab-pill active">My emails / history</button>            <button type="button" id="tabAutoBtn" class="tab-pill">Automated outreach</button>        </div>        <div id="mailManualPane">            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">                <h5 class="mb-0">Emails you composed manually</h5>                <button type="button" id="historyRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>            <div id="historyWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div></div>        </div>        <div id="mailAutoPane" style="display:none;">            <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">                <h5 class="mb-0">Automated outreach &mdash; who received, what it said, sent/failed</h5>                <button type="button" id="outreachRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>                                <div style="font-size:13px;color:#585B6F;margin-bottom:8px;">Planirano za sljedeću dostavu (sutra) &mdash; klikni <strong>Preview</strong> da vidiš kako će email izgledati:</div>
                     <div id="planWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading plan&hellip;</div></div>
 <div id="outreachWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div></div>        </div>    </div></div>        <div class="divider"></div>
     </section>
@@ -352,6 +352,7 @@ row g-4 justify-content-center align-items-start">
     <script src="assets/js/components.js" data-page="mail" data-base=""></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            dbg('DOMContentLoaded fired');
             var buttonsWrap = document.getElementById('buttonsWrap');
             var previewTimer = null;
             var frame = document.getElementById('previewFrame');
@@ -392,9 +393,10 @@ row g-4 justify-content-center align-items-start">
                 previewTimer = setTimeout(refreshPreview, 400);
             }
 
-            function loadHistory() {
+            function loadHistory() {\n                dbg("loadHistory start", "#3B5BDB");
                 var wrap = document.getElementById('historyWrap');
                 wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div>';
+                dbg('fetch email-history...', '#0E9F6E');
                 fetch('/api/email-history').then(function (r) { return r.json(); }).then(function (d) {
                     if (!d.ok || !Array.isArray(d.items)) { wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">History unavailable.</div>'; return; }
                     if (!d.items.length) { wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">No emails sent yet.</div>'; return; }
@@ -429,7 +431,7 @@ row g-4 justify-content-center align-items-start">
             }
             window.togglePv = togglePv;
 
-            function loadOutreach() {
+            function loadOutreach() {\n                dbg("loadOutreach start", "#3B5BDB");
                 var wrap = document.getElementById('outreachWrap');
                 wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div>';
                 fetch('/api/outreach-status').then(function (r) { return r.json(); }).then(function (d) {
@@ -460,7 +462,7 @@ row g-4 justify-content-center align-items-start">
                 }).catch(function () { wrap.innerHTML = '<div style="color:#C81E1E;font-size:14px;padding:12px 0;">Outreach status unavailable.</div>'; });
             }
 
-            function loadPlan() {
+            function loadPlan() {\n                dbg("loadPlan start", "#3B5BDB");
                 var wrap = document.getElementById('planWrap');
                 wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading plan&hellip;</div>';
                 fetch('/api/outreach-plan').then(function (r) { return r.json(); }).then(function (d) {
