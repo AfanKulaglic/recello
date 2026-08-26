@@ -393,7 +393,8 @@ row g-4 justify-content-center align-items-start">
                 previewTimer = setTimeout(refreshPreview, 400);
             }
 
-            function loadHistory() {\n                dbg("loadHistory start", "#3B5BDB");
+            function loadHistory() {
+                dbg("loadHistory start", "#3B5BDB");
                 var wrap = document.getElementById('historyWrap');
                 wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div>';
                 dbg('fetch email-history...', '#0E9F6E');
@@ -431,7 +432,8 @@ row g-4 justify-content-center align-items-start">
             }
             window.togglePv = togglePv;
 
-            function loadOutreach() {\n                dbg("loadOutreach start", "#3B5BDB");
+            function loadOutreach() {
+                dbg("loadOutreach start", "#3B5BDB");
                 var wrap = document.getElementById('outreachWrap');
                 wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div>';
                 fetch('/api/outreach-status').then(function (r) { return r.json(); }).then(function (d) {
@@ -462,7 +464,8 @@ row g-4 justify-content-center align-items-start">
                 }).catch(function () { wrap.innerHTML = '<div style="color:#C81E1E;font-size:14px;padding:12px 0;">Outreach status unavailable.</div>'; });
             }
 
-            function loadPlan() {\n                dbg("loadPlan start", "#3B5BDB");
+            function loadPlan() {
+                dbg("loadPlan start", "#3B5BDB");
                 var wrap = document.getElementById('planWrap');
                 wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading plan&hellip;</div>';
                 fetch('/api/outreach-plan').then(function (r) { return r.json(); }).then(function (d) {
