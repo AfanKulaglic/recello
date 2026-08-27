@@ -38,7 +38,31 @@
     
         /* /mail tabovi (Manual vs Automated outreach) */
         .tab-pill { border:1px solid #E9E4F7; background:#fff; color:#585B6F; padding:8px 18px; border-radius:30px; font-size:14px; font-weight:600; }
-        .tab-pill.active { border-color:#800000; background:#800000; color:#fff; }</style>
+        .tab-pill.active { border-color:#800000; background:#800000; color:#fff; }
+        /* === V4: kartice & grid === */
+        .mail-list { display: flex; flex-direction: column; gap: 10px; }
+        .mail-item { display: grid; grid-template-columns: auto 1fr auto; gap: 14px; align-items: center; background: #FBFAFD; border: 1px solid #F0EDF9; border-radius: 14px; padding: 13px 16px; transition: all .18s ease; }
+        .mail-item:hover { background: #fff; border-color: #E2D9F5; box-shadow: 0 6px 18px rgba(11,14,20,.07); transform: translateX(2px); }
+        .avatar { width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; color: #fff; flex-shrink: 0; }
+        .av-bordo { background: linear-gradient(135deg,#800000,#B03030); }
+        .av-blue { background: linear-gradient(135deg,#3B5BDB,#5C7CFA); }
+        .av-green { background: linear-gradient(135deg,#0E9F6E,#31C48D); }
+        .mi-main { min-width: 0; }
+        .mi-title { font-weight: 650; color: #0B0E14; font-size: 14.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .mi-sub { color: #8A8FA3; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px; }
+        .mi-body { color: #585B6F; font-size: 12.5px; line-height: 1.55; margin-top: 7px; background: #fff; border: 1px dashed #E5DFF5; border-radius: 10px; padding: 8px 12px; max-height: 88px; overflow: hidden; }
+        .mi-meta { text-align: right; flex-shrink: 0; display: flex; flex-direction: column; gap: 5px; align-items: flex-end; }
+        .mi-date { color: #8A8FA3; font-size: 12px; white-space: nowrap; }
+        .badge-st { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 99px; }
+        .st-sent { background: #E7F9F0; color: #0E9F6E; }
+        .st-fail { background: #FDE8E8; color: #C81E1E; }
+        .list-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin: 16px 0 12px; padding-bottom: 10px; border-bottom: 2px solid #F4F1FA; }
+        .list-head h5 { margin: 0; font-weight: 700; color: #0B0E14; display: flex; align-items: center; gap: 10px; }
+        .lh-icon { width: 32px; height: 32px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 15px; }
+        .lh-bordo { background: #FBEDED; } .lh-green { background: #E7F9F0; } .lh-blue { background: #EEF2FF; }
+        .list-count { background: #F4F1FA; color: #585B6F; border-radius: 99px; font-size: 12px; font-weight: 700; padding: 3px 11px; }
+        @media (max-width: 640px) { .mail-item { grid-template-columns: auto 1fr; } .mi-meta { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; } .mi-body { max-height: none; } }
+</style>
 
     <!-- Branding: favicon + Open Graph -->
     <link rel="icon" type="image/png" sizes="64x64" href="assets/img/core-img/favicon.png">
@@ -220,7 +244,7 @@
                 </div>
             </div>
 
-            <div class="mt-4">    <div class="p-4 p-xl-5" style="background:#fff;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.06);">        <div class="d-flex gap-2 mb-3">            <button type="button" id="tabManualBtn" class="tab-pill active">My emails / history</button>            <button type="button" id="tabAutoBtn" class="tab-pill">Automated outreach</button>        </div>        <div id="mailManualPane">            <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">                <h5 class="mb-0">Emails you composed manually</h5>                <button type="button" id="historyRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>            <div id="historyWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div></div>        </div>        <div id="mailAutoPane" style="display:none;">            <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">                <h5 class="mb-0">Automated outreach &mdash; who received, what it said, sent/failed</h5>                <button type="button" id="outreachRefresh" class="btn btn-sm" style="border:1px solid #E9E4F7;color:#585B6F;background:#fff;">Refresh</button>            </div>                                <div style="font-size:13px;color:#585B6F;margin-bottom:8px;">Planirano za sljedeću dostavu (sutra) &mdash; klikni <strong>Preview</strong> da vidiš kako će email izgledati:</div>
+                    wrap.innerHTML = '<div class="list-head"><h5><span class="lh-icon lh-blue">&#128203;</span> Plan za sljede&#263;u dostavu</h5><span class="list-count">' + d.items.length + '</span></div><div class="mail-list">' + rows + '</div>';
                     <div id="planWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading plan&hellip;</div></div>
 <div id="outreachWrap"><div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Loading&hellip;</div></div>        </div>    </div></div>        <div class="divider"></div>
     </section>
@@ -289,19 +313,26 @@
                         wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">No emails sent yet.</div>';
                         return;
                     }
-                    var rows = d.items.map(function (m) {
+                    var rows = d.items.map(function (m, idx) {
                         var d2 = new Date(m.ts);
-                        var dateStr = d2.toLocaleDateString() + ' ' + d2.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        var dateStr = d2.toLocaleDateString([], { day: 'numeric', month: 'short' }) + ' / ' + d2.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                         var who = m.name || m.company || m.to;
-                        return '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #F0EDF9;font-size:14px;flex-wrap:wrap;">' +
-                            '<div style="min-width:0;">' +
-                                '<div style="color:#0B0E14;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + who + '</div>' +
-                                '<div style="color:#8A8FA3;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + m.to + (m.subject ? ' �€” ' + m.subject : '') + '</div>' +
-                            '</div>' +
-                            '<div style="color:#8A8FA3;font-size:13px;white-space:nowrap;">' + dateStr + '</div>' +
-                        '</div>';
+                        var initial = (who || '?').trim().charAt(0).toUpperCase();
+                        var av = ['av-bordo','av-blue','av-green'][idx % 3];
+                        return '<div class="mail-item">'
+                            + '<div class="avatar ' + av + '">' + initial + '</div>'
+                            + '<div class="mi-main">'
+                                + '<div class="mi-title">' + who + '</div>'
+                                + '<div class="mi-sub">' + m.to + '</div>'
+                                + (m.subject ? '<div class="mi-sub" style="color:#585B6F;">' + m.subject + '</div>' : '')
+                            + '</div>'
+                            + '<div class="mi-meta">'
+                                + '<span class="mi-date">' + dateStr + '</span>'
+                                + '<span class="badge-st st-sent">Sent</span>'
+                            + '</div>'
+                        + '</div>';
                     }).join('');
-                    wrap.innerHTML = '<div style="font-size:13px;color:#585B6F;margin-bottom:8px;">Total sent: <strong style="color:#0B0E14;">' + d.items.length + '</strong></div>' + rows;
+                    wrap.innerHTML = '<div class="list-head"><h5><span class="lh-icon lh-bordo">&#9993;</span> Poslani ru&#269;ni emailovi</h5><span class="list-count">' + d.items.length + '</span></div><div class="mail-list">' + rows + '</div>';
                 })
                 .catch(function () {
                     wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">History unavailable.</div>';
@@ -324,22 +355,26 @@
                         wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">No automated emails sent yet.</div>';
                         return;
                     }
-                    var rows = d.items.map(function (m) {
+                    var rows = d.items.map(function (m, idx) {
                         var d2 = new Date(m.ts);
-                        var dateStr = d2.toLocaleDateString() + ' ' + d2.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                        var badge = m.ok
-                            ? '<span style="color:#1A7F37;font-weight:600;">Sent</span>'
-                            : '<span style="color:#C81E1E;font-weight:600;" title="' + (m.error ? m.error.replace(/"/g, '&quot;') : '') + '">Failed</span>';
-                        return '<div style="padding:10px 0;border-bottom:1px solid #F0EDF9;font-size:14px;">' +
-                            '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;">' +
-                                '<div style="min-width:0;color:#0B0E14;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + (m.company || m.ownerName || m.to) + '</div>' +
-                                '<div style="color:#8A8FA3;font-size:13px;white-space:nowrap;">' + dateStr + ' &middot; ' + badge + '</div>' +
-                            '</div>' +
-                            '<div style="color:#585B6F;font-size:13px;margin-top:2px;">To: <strong>' + m.to + '</strong> &mdash; ' + m.subject + '</div>' +
-                            (m.body ? '<div style="color:#8A8FA3;font-size:12px;margin-top:4px;white-space:pre-wrap;">' + m.body.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' : '') +
-                        '</div>';
+                        var dateStr = d2.toLocaleDateString([], { day: 'numeric', month: 'short' }) + ' / ' + d2.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        var who = m.name || m.company || m.to;
+                        var initial = (who || '?').trim().charAt(0).toUpperCase();
+                        var av = ['av-bordo','av-blue','av-green'][idx % 3];
+                        return '<div class="mail-item">'
+                            + '<div class="avatar ' + av + '">' + initial + '</div>'
+                            + '<div class="mi-main">'
+                                + '<div class="mi-title">' + who + '</div>'
+                                + '<div class="mi-sub">' + m.to + '</div>'
+                                + (m.subject ? '<div class="mi-sub" style="color:#585B6F;">' + m.subject + '</div>' : '')
+                            + '</div>'
+                            + '<div class="mi-meta">'
+                                + '<span class="mi-date">' + dateStr + '</span>'
+                                + '<span class="badge-st st-sent">Sent</span>'
+                            + '</div>'
+                        + '</div>';
                     }).join('');
-                    wrap.innerHTML = '<div style="font-size:13px;color:#585B6F;margin-bottom:8px;">Total automated emails: <strong style="color:#0B0E14;">' + d.items.length + '</strong></div>' + rows;
+                    wrap.innerHTML = '<div class="list-head"><h5><span class="lh-icon" style="background:#E7F9F0;">&#9889;</span> Istorija automatskog slanja</h5><span class="list-count">' + d.items.length + '</span></div><div class="mail-list">' + rows + '</div>';
                 })
                 .catch(function () {
                     wrap.innerHTML = '<div style="color:#8A8FA3;font-size:14px;padding:12px 0;">Outreach status unavailable.</div>';
