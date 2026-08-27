@@ -1,5 +1,5 @@
 ﻿/* ============================================================
-   Recello �€” Zajedničke komponente sajta
+   Recello — Zajedničke komponente sajta
    ------------------------------------------------------------
    Ubaci ovaj skript na KRAJU body-ja svake stranice:
      <script src="assets/js/components.js" data-page="services" data-base=""></script>
@@ -116,7 +116,7 @@
             <div class="left-side d-flex align-items-center gap-4 gap-lg-5">
               <div class="d-flex align-items-center gap-2 text-white">
                 ${icon('headset')}
-                <span class="d-none d-lg-block">24/7 �€” no call is ever missed</span>
+                <span class="d-none d-lg-block">24/7 — no call is ever missed</span>
               </div>
               <div class="d-flex align-items-center gap-2 text-white">
                 ${icon('phone')}
@@ -189,7 +189,7 @@
                 <a href="${base}index.html" class="d-block mb-4">
                   <img src="${base}assets/img/core-img/logo.png" alt="Recello" style="max-height:46px;width:auto;">
                 </a>
-                <p class="mb-0">Recello �€” a smart AI receptionist that answers for you 24/7. AI Secretary for your business.</p>
+                <p class="mb-0">Recello — a smart AI receptionist that answers for you 24/7. AI Secretary for your business.</p>
                 <div class="social-nav">
                   <a href="https://www.facebook.com/profile.php?id=61592861595686" target="_blank" rel="noopener" aria-label="Facebook">${icon('facebook')}</a>
                   <a href="https://www.instagram.com/recello_ai_secretary/" target="_blank" rel="noopener" aria-label="Instagram">${icon('instagram')}</a>
@@ -276,7 +276,7 @@
           <div class="container">
             <div class="row align-items-center">
               <div class="col-12 col-md-6">
-                <p class="mb-3 mb-md-0 copyright">Copyright © ${year} <a href="${base}index.html">Recello</a> �€” All rights reserved.</p>
+                <p class="mb-3 mb-md-0 copyright">Copyright © ${year} <a href="${base}index.html">Recello</a> — All rights reserved.</p>
               </div>
               <div class="col-12 col-md-6">
                 <div class="footer-bottom-nav">
@@ -293,7 +293,7 @@
   }
 
   // Mobile: dropdown (Usluge / Dokumentacija) radi kao accordion unutar
-  // hamburger menija. Bootstrap dropdown bi preusmjerio na href �€” mi to
+  // hamburger menija. Bootstrap dropdown bi preusmjerio na href — mi to
   // zaustavimo i ručno prebacujemo .show klasu.
   function initMobileDropdown() {
     const header = document.querySelector('.header-area');
@@ -349,18 +349,18 @@
   }
 
   // Cookie consent banner (PECR: analytics cookies need opt-in consent).
-  // Only strictly-necessary cookies are set by default �€” the banner documents this.
+  // Only strictly-necessary cookies are set by default — the banner documents this.
   function renderCookieBanner() {
     if (document.getElementById('cookieBanner')) return;
     const banner = document.createElement('div');
     banner.id = 'cookieBanner';
-    // Kompaktna kartica u DONJEM LIJEVOM uglu �€” ne dira desni ugao gdje su
+    // Kompaktna kartica u DONJEM LIJEVOM uglu — ne dira desni ugao gdje su
     // chat balon i back-to-top dugme. Z-index ispod njih (99994).
     banner.style.cssText = 'position:fixed;bottom:16px;left:16px;z-index:99994;max-width:480px;background:#0B0E14;color:#fff;padding:14px 18px;border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.25);font-size:13.5px;line-height:1.45;';
     banner.innerHTML = `
       <div style="display:flex;flex-direction:column;gap:10px;">
         <div>
-          <strong>🍪 Cookies</strong> �€” this site uses only strictly necessary cookies to function. We do not set analytics or marketing cookies without your consent. See our <a href="${base}privacy.html" style="color:#C9B4FF;text-decoration:underline;">Privacy Policy</a>.
+          <strong>🍪 Cookies</strong> — this site uses only strictly necessary cookies to function. We do not set analytics or marketing cookies without your consent. See our <a href="${base}privacy.html" style="color:#C9B4FF;text-decoration:underline;">Privacy Policy</a>.
         </div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;">
           <button id="cookieAccept" style="background:#601FEB;color:#fff;border:none;border-radius:8px;padding:8px 18px;font-weight:600;cursor:pointer;">Accept</button>
@@ -377,7 +377,7 @@
   }
 
   // ============================================================
-  // CHAT WIDGET �€” "Iris", AI asistent sa prezentacijske stranice
+  // CHAT WIDGET — "Iris", AI asistent sa prezentacijske stranice
   // ------------------------------------------------------------
   // PlivajuÄ‡i balon u donjem desnom uglu. Klik â†’ otvori panel sa
   // kratkom porukom, predloženim pitanjima i chatom.
@@ -478,7 +478,7 @@
         <div class="cw-head">
           <div class="cw-avatar">${sparkIcon}</div>
           <div>
-            <div class="cw-head-title">Iris �€” Recello Assistant</div>
+            <div class="cw-head-title">Iris — Recello Assistant</div>
             <div class="cw-head-sub">Typically replies instantly</div>
           </div>
           <button class="cw-close" id="cwClose" aria-label="Close chat">${closeIcon}</button>
@@ -543,7 +543,7 @@
       panel.classList.add('cw-open');
       bubble.innerHTML = closeIcon;
       if (!body.children.length) {
-        addMsg('ai', 'Hi! ðŸ‘‹ I\'m Iris, the Recello assistant. Ask me anything about our AI receptionist �€” plans, prices, setup or ordering. I\'ll keep it short and helpful!');
+        addMsg('ai', 'Hi! ðŸ‘‹ I\'m Iris, the Recello assistant. Ask me anything about our AI receptionist — plans, prices, setup or ordering. I\'ll keep it short and helpful!');
         showQuick();
       }
       setTimeout(() => input.focus(), 250);
