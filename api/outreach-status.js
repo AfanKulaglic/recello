@@ -1,8 +1,10 @@
-/**
- * Vercel serverless funkcija — proxy za automatski outreach status (/mail).
- * Čita outreach/sent iz Firebase preko backend rute /api/outreach-status.
+﻿/**
+ * Vercel serverless funkcija â€” proxy za automatski outreach status (/mail).
+ * ÄŒita outreach/sent iz Firebase preko backend rute /api/outreach-status.
  */
 const BACKEND = 'https://api.recello.co.uk/api/outreach-status';
+
+export const maxDuration = 60;
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');

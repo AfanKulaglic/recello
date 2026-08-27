@@ -6,8 +6,8 @@
    Za stranice u docs/ folderu koristi:
      <script src="../assets/js/components.js" data-page="getting-started" data-base="../"></script>
 
-   data-page  â†’ ključ aktivne stranice (vidi NAV ispod)
-   data-base  â†’ prefiks za assets putanje ('../' za docs/)
+   data-page  → ključ aktivne stranice (vidi NAV ispod)
+   data-base  → prefiks za assets putanje ('../' za docs/)
 ============================================================ */
 (function () {
   const script = document.currentScript;
@@ -163,7 +163,7 @@
     btn.id = 'scrollTopButton';
     btn.className = 'softora-scrolltop scrolltop-hide';
     // Pozicija: IZNAD chat balona (oba su u donjem desnom uglu), a z-index
-    // veÄ‡i od cookie bannera da ga banner nikad ne prekrije.
+    // veći od cookie bannera da ga banner nikad ne prekrije.
     btn.style.bottom = '96px';
     btn.style.right = '32px';
     btn.style.zIndex = '99997';
@@ -234,8 +234,8 @@
                   <li><a href="${base}docs/chat.html">Chat commands</a></li>
                   <li><a href="${base}docs/orders-appointments.html">Orders & appointments</a></li>
                   <li><a href="${base}docs/mobile-app.html">Mobile &amp; Web app</a></li>
-                  <li><a href="/app">Open web app â†’</a></li>
-                  <li><a href="/admin">Admin dashboard â†’</a></li>
+                  <li><a href="/app">Open web app →</a></li>
+                  <li><a href="/admin">Admin dashboard →</a></li>
                   <li><a href="${base}docs/payment.html">Payment &amp; billing</a></li>
                   <li><a href="${base}faq.html">FAQ</a></li>
                 </ul>
@@ -379,9 +379,9 @@
   // ============================================================
   // CHAT WIDGET — "Iris", AI asistent sa prezentacijske stranice
   // ------------------------------------------------------------
-  // PlivajuÄ‡i balon u donjem desnom uglu. Klik â†’ otvori panel sa
+  // Plivajući balon u donjem desnom uglu. Klik → otvori panel sa
   // kratkom porukom, predloženim pitanjima i chatom.
-  // Poziva /api/chat (Vercel serverless proxy â†’ backend â†’ Groq,
+  // Poziva /api/chat (Vercel serverless proxy → backend → Groq,
   // najjeftiniji model). Radi na svakoj stranici jer je dio components.js.
   // ============================================================
   function renderChatWidget() {
