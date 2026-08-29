@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Recello social scheduler — plan a month of posts, system publishes daily to Facebook, Instagram, LinkedIn and X.">
+    <title>Social | Recello — Social Scheduler</title>
+    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .soc-wrap { max-width: 1080px; margin: 0 auto; }
+        .soc-hero { padding: 90px 0 30px; text-align: center; }
+        .soc-hero h2 { font-weight: 800; }
+        .soc-stats { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin: 24px 0 8px; }
+        .soc-stat { background: #F7F7FC; border: 1px solid #EEEAFB; border-radius: 16px; padding: 14px 22px; text-align: center; min-width: 150px; }
+        .soc-stat .v { font-size: 26px; font-weight: 800; color: #601FEB; }
+        .soc-stat .l { font-size: 12px; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: .4px; }
+        .soc-card { background: #fff; border: 1px solid #EEEAFB; border-radius: 18px; padding: 22px; box-shadow: 0 2px 10px rgba(96,31,235,.05); }
+        .soc-section { margin: 26px 0; }
+        .soc-section h3 { font-weight: 700; margin-bottom: 14px; }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .cal-head { text-align: center; font-size: 11px; font-weight: 700; color: #6B7280; text-transform: uppercase; padding: 6px 0; }
+        .cal-cell { background: #F7F7FC; border: 1px solid #EEEAFB; border-radius: 10px; min-height: 64px; padding: 6px; font-size: 12px; cursor: pointer; position: relative; transition: .15s; }
+        .cal-cell:hover { border-color: #601FEB; background: #F0EBFF; }
+        .cal-cell.today { border-color: #601FEB; box-shadow: 0 0 0 2px rgba(96,31,235,.15); }
+        .cal-cell .d { font-weight: 800; color: #374151; }
+        .cal-cell.empty { background: transparent; border: none; cursor: default; }
+        .cal-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin: 1px; }
+        .cal-dot.done { background: #16A34A; } .cal-dot.plan { background: #601FEB; } .cal-dot.err { background: #DC2626; } .cal-dot.key { background: #F59E0B; }
+        .cal-legend { font-size: 12px; color: #6B7280; margin-top: 10px; display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+        .soc-label { font-weight: 600; font-size: 13px; color: #374151; margin: 12px 0 6px; }
+        .soc-net { display: flex; gap: 8px; flex-wrap: wrap; }
+        .soc-net .chip { border: 1.5px solid #E5E7EB; border-radius: 999px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; user-select: none; background: #fff; }
+        .soc-net .chip.on { border-color: #601FEB; background: #601FEB; color: #fff; }
+        .soc-drop { border: 2px dashed #D9D4F7; border-radius: 14px; padding: 18px; text-align: center; color: #6B7280; font-size: 13px; cursor: pointer; background: #FAFAFF; }
+        .soc-drop:hover { border-color: #601FEB; }
+        .soc-media-prev { max-width: 220px; border-radius: 12px; margin-top: 10px; display: none; }
+        .post-card { display: flex; gap: 14px; align-items: flex-start; background: #fff; border: 1px solid #EEEAFB; border-radius: 14px; padding: 14px; margin-bottom: 10px; }
+        .post-thumb { width: 86px; height: 86px; object-fit: cover; border-radius: 10px; background: #F3F4F6; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #9CA3AF; font-size: 24px; }
+        .post-body { flex: 1; min-width: 0; }
+        .post-date { font-weight: 800; color: #601FEB; font-size: 13px; }
+        .post-cap { font-size: 14px; color: #374151; margin: 4px 0 8px; word-break: break-word; }
+        .net-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; border-radius: 999px; padding: 3px 10px; margin-right: 6px; margin-bottom: 4px; }
+        .net-badge.f { background: #E8F0FE; color: #1A56DB; } .net-badge.i { background: #FDF2F8; color: #BE185D; }
+        .net-badge.l { background: #EFF6FF; color: #0A66C2; } .net-badge.x { background: #F3F4F6; color: #111827; }
+        .st-done { color: #16A34A; } .st-wait { color: #6B7280; } .st-err { color: #DC2626; } .st-key { color: #F59E0B; }
+        .soc-actions { display: flex; flex-direction: column; gap: 6px; }
+        .btn-soc { background: #601FEB; border: none; color: #fff; border-radius: 10px; padding: 10px 20px; font-weight: 700; }
+        .btn-soc:hover { background: #4C16BC; color: #fff; }
+        .btn-ghost { border: 1.5px solid #E5E7EB; background: #fff; color: #374151; border-radius: 10px; padding: 8px 14px; font-weight: 600; font-size: 13px; }
+        .btn-ghost:hover { border-color: #601FEB; color: #601FEB; }
+        .key-banner { background: #FFF7ED; border: 1px solid #FED7AA; color: #9A3412; border-radius: 12px; padding: 12px 16px; font-size: 13px; margin-bottom: 18px; display: none; }
+        .toast-ok { position: fixed; bottom: 24px; right: 24px; background: #111827; color: #fff; border-radius: 12px; padding: 12px 20px; font-size: 14px; display: none; z-index: 999; }
+        @media (max-width: 640px) { .cal-cell { min-height: 48px; } .post-thumb { width: 64px; height: 64px; } }
+    </style>
+</head>
+
+<body>
+    <script src="assets/js/components.js" data-page="social" data-base=""></script>
+
+    <section class="soc-hero soc-wrap">
+        <div class="container">
+            <div style="display:inline-flex; background:#F0EBFF; border-radius:999px; padding:8px 18px; font-weight:700; color:#601FEB; font-size:13px;">SOCIAL SCHEDULER</div>
+            <h2>Plan a month. We publish daily.</h2>
+            <p style="color:#6B7280; max-width:640px; margin:10px auto 0;">Zakazi 30 postova unaprijed (slika/video + opis) i sistem svaki dan objavi sljedeci post u najbolje vrijeme — na Facebook, Instagram, LinkedIn i X.</p>
+            <div class="soc-stats" id="socStats"></div>
+        </div>
+    </section>
+
+    <div class="soc-wrap" style="padding: 0 18px 80px;">
+        <div class="key-banner" id="keyBanner"></div>
+
+        <!-- KALENDAR -->
+        <div class="soc-section soc-card">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <h3 style="margin:0;" id="calTitle">Kalendar</h3>
+                <div style="display:flex; gap:8px;">
+                    <button class="btn-ghost" onclick="calNav(-1)">&#8592; Prethodni</button>
+                    <button class="btn-ghost" onclick="calNav(1)">Sljedeci &#8594;</button>
+                </div>
+            </div>
+            <div class="cal-grid" id="calGrid" style="margin-top:14px;"></div>
+            <div class="cal-legend">
+                <span><span class="cal-dot plan"></span> planirano</span>
+                <span><span class="cal-dot done"></span> objavljeno (svima)</span>
+                <span><span class="cal-dot err"></span> greska</span>
+                <span><span class="cal-dot key"></span> fali API kljuc</span>
+            </div>
+        </div>
+
+        <!-- FORMA -->
+        <div class="soc-section soc-card" id="formCard">
+            <h3 id="formTitle">Novi post</h3>
+            <input type="hidden" id="editId">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div>
+                    <div class="soc-label">Datum objave</div>
+                    <input type="date" id="fDate" class="form-control">
+                </div>
+                <div>
+                    <div class="soc-label">Mreze (odaberi)</div>
+                    <div class="soc-net" id="netChips">
+                        <span class="chip on" data-n="facebook">Facebook</span>
+                        <span class="chip on" data-n="instagram">Instagram</span>
+                        <span class="chip on" data-n="linkedin">LinkedIn</span>
+                        <span class="chip on" data-n="x">X</span>
+                    </div>
+                </div>
+            </div>
+            <div class="soc-label">Opis (caption)</div>
+            <textarea id="fCaption" class="form-control" rows="4" maxlength="5000" placeholder="Sadrzaj posta..."></textarea>
+            <div class="soc-label">Slika / video</div>
+            <div class="soc-drop" id="dropZone" onclick="document.getElementById('fFile').click()">
+                <b>Klikni da odaberes fajl</b> ili prevuci ovde<br>Slike se automatski optimizuju. Video max 20MB (mp4/mov/webm).
+            </div>
+            <input type="file" id="fFile" accept="image/*,video/mp4,video/quicktime,video/webm" style="display:none">
+            <img id="mediaPrev" class="soc-media-prev" alt="preview">
+            <div id="mediaUrlRow" style="margin-top:10px;">
+                <div class="soc-label">...ili javni URL (za video mozes koristiti i direktni link)</div>
+    
+    
+                <input type="url" id="fMediaUrl" class="form-control" placeholder="https://...">
+            </div>
+            <div id="mediaStatus" style="font-size:13px; color:#6B7280; margin-top:8px;"></div>
+            <div style="margin-top:16px; display:flex; gap:10px;">
+                <button class="btn-soc" id="btnSubmit" onclick="submitPost()">Zakazi post</button>
+                <button class="btn-ghost" id="btnCancel" style="display:none;" onclick="resetForm()">Otkazi izmjene</button>
+    
+</body>
+
+</html>
+            </div>
+        </div>
+
+        <!-- LISTA -->
+        <div class="soc-section">
+            <h3>Planirani i objavljeni postovi</h3>
+            <div id="postList"><div class="soc-card" style="color:#6B7280;">Ucitavanje...</div></div>
+        </div>
+    </div>
+
+    <div class="toast-ok" id="toast"></div>
+
+    <script>'use strict';
+        const API = 'https://api.recello.co.uk';
+        const POSTS = '/api/social-posts';
+        const RESULTS = '/api/social-status';
+        const SLOTS = { linkedin: '09:00', x: '12:00', facebook: '13:00', instagram: '18:00' };
+        const NET_LABEL = { facebook: 'Facebook', instagram: 'Instagram', linkedin: 'LinkedIn', x: 'X' };
+        const NET_CLS = { facebook: 'f', instagram: 'i', linkedin: 'l', x: 'x' };
+        let QUEUE = [], RMAP = {}, calMonth = new Date(), pendingMedia = null;
+
+        const $ = (id) => document.getElementById(id);
+        const fmt = (d) => d.toISOString().slice(0, 10);
+        const todayStr = () => fmt(new Date());
+        function toast(msg) { const t = $('toast'); t.textContent = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2600); }
+
+        async function loadAll() {
+            const [q, r] = await Promise.all([
+                fetch(POSTS).then((x) => x.json()),
+                fetch(RESULTS).then((x) => x.json()),
+            ]);
+            QUEUE = q.items || [];
+            RMAP = r.results || {};
+            renderStats(); renderCalendar(); renderList(); renderKeyBanner();
+        }
+
+        function renderStats() {
+            const done = new Set(), fail = new Set(), key = new Set();
+            QUEUE.forEach((p) => (RMAP[p.id] ? Object.values(RMAP[p.id]) : []).forEach((r) => {
+                if (r.status === 'published') done.add(p.id);
+                if (r.status === 'failed') fail.add(p.id);
+                if (r.status === 'missing_key') key.add(p.id);
+            }));
+            const todayCount = QUEUE.filter((p) => p.date === todayStr()).length;
+            const stats = [
+                { v: todayCount, l: 'Postova danas' },
+                { v: QUEUE.length, l: 'Zakazano ukupno' },
+                { v: done.size, l: 'Objavljeno' },
+                { v: fail.size + key.size, l: 'Problemi' },
+            ];
+            $('socStats').innerHTML = stats.map((s) => `<div class="soc-stat"><div class="v">${s.v}</div><div class="l">${s.l}</div></div>`).join('');
+        }
+
+        function renderKeyBanner() {
+            const missing = new Set();
+            QUEUE.forEach((p) => Object.values(RMAP[p.id] || {}).forEach((r) => {
+                if (r.status === 'missing_key' && r.error) missing.add(r.error.split(' nije')[0]);
+            }));
+            const b = $('keyBanner');
+            if (missing.size) {
+                b.style.display = 'block';
+                b.innerHTML = '<b>API kljucevi nisu podeseni:</b> ' + [...missing].join(', ') + '. Vidi listu u SESIJA.md — dodaj kljuceve u backend .env i restartuj servis.';
+            } else b.style.display = 'none';
+        }
+
+        function calNav(dir) { calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + dir, 1); renderCalendar(); }
+
+        function renderCalendar() {
+            const y = calMonth.getFullYear(), m = calMonth.getMonth();
+            $('calTitle').textContent = calMonth.toLocaleDateString('bs-BA', { month: 'long', year: 'numeric' });
+            const first = new Date(y, m, 1);
+            const startDow = (first.getDay() + 6) % 7; // ponedjeljak prvi
+            const days = new Date(y, m + 1, 0).getDate();
+            let html = ['Po', 'Ut', 'Sr', 'Ce', 'Pe', 'Su', 'Ne'].map((d) => `<div class="cal-head">${d}</div>`).join('');
+            for (let i = 0; i < startDow; i++) html += '<div class="cal-cell empty"></div>';
+            for (let d = 1; d <= days; d++) {
+                const ds = `${y}-${String(m + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                const posts = QUEUE.filter((p) => p.date === ds);
+                let dots = '';
+                posts.forEach((p) => {
+                    const rs = Object.values(RMAP[p.id] || {});
+                    if (!rs.length) dots += '<span class="cal-dot plan"></span>';
+                    else if (rs.some((r) => r.status === 'missing_key')) dots += '<span class="cal-dot key"></span>';
+                    else if (rs.some((r) => r.status === 'failed')) dots += '<span class="cal-dot err"></span>';
+                    else if (rs.every((r) => r.status === 'published')) dots += '<span class="cal-dot done"></span>';
+                    else dots += '<span class="cal-dot plan"></span>';
+                });
+                html += `<div class="cal-cell ${ds === todayStr() ? 'today' : ''}" onclick="openForDate('${ds}')"><div class="d">${d}</div>${dots}</div>`;
+            }
+            $('calGrid').innerHTML = html;
+        }
+
+        function openForDate(ds) {
+            $('fDate').value = ds;
+            $('formCard').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+    <script>// === media upload + forma (dio 2) ===
+        document.querySelectorAll('#netChips .chip').forEach((chip) => {
+            chip.addEventListener('click', () => chip.classList.toggle('on'));
+        });
+        function selectedNets() {
+            return [...document.querySelectorAll('#netChips .chip.on')].map((c) => c.dataset.n);
+        }
+        $('fFile').addEventListener('change', (e) => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+        $('dropZone').addEventListener('dragover', (e) => { e.preventDefault(); $('dropZone').style.borderColor = '#601FEB'; });
+        $('dropZone').addEventListener('dragleave', () => $('dropZone').style.borderColor = '');
+        $('dropZone').addEventListener('drop', (e) => {
+            e.preventDefault(); $('dropZone').style.borderColor = '';
+            if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+        });
+        function resizeImage(file) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const max = 1600;
+                    let w = img.width, h = img.height;
+                    if (w > max || h > max) { const k = max / Math.max(w, h); w = Math.round(w * k); h = Math.round(h * k); }
+                    const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+                    cv.getContext('2d').drawImage(img, 0, 0, w, h);
+                    resolve(cv.toDataURL('image/jpeg', 0.85));
+                };
+                img.src = URL.createObjectURL(file);
+            });
+        }
+        async function uploadMedia(file) {
+            $('mediaStatus').textContent = 'Uploadam media...';
+            let dataBase64;
+            let filename = file.name;
+            if (file.type.startsWith('image/')) {
+                dataBase64 = await resizeImage(file);
+                filename = filename.replace(/\.[^.]+$/, '') + '.jpg';
+            } else {
+                if (file.size > 20 * 1024 * 1024) { $('mediaStatus').textContent = 'Video prevelik (max 20MB). Koristi javni URL polje ispod.'; return null; }
+                dataBase64 = await new Promise((r) => { const fr = new FileReader(); fr.onload = () => r(fr.result.split(',')[1]); fr.readAsDataURL(file); });
+            }
+            const res = await fetch(API + '/api/social-media', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ filename, dataBase64 }),
+            });
+            const j = await res.json().catch(() => ({}));
+            if (!res.ok || !j.ok) { $('mediaStatus').textContent = 'Upload greska: ' + (j.error || res.status); return null; }
+            $('mediaStatus').textContent = 'Media uploadan: ' + j.file;
+            return { url: j.url, localPath: j.localPath, mediaType: file.type.startsWith('video/') ? 'video' : 'image' };
+        }
+        async function handleFile(file) {
+            pendingMedia = null;
+            const prev = $('mediaPrev');
+            if (file.type.startsWith('image/')) {
+                prev.src = URL.createObjectURL(file); prev.style.display = 'block';
+            } else { prev.style.display = 'none'; }
+            pendingMedia = await uploadMedia(file);
+        }
+    </script>
+    <script>// === submit / edit / delete / lista (dio 3) ===
+        async function submitPost() {
+            const date = $('fDate').value;
+            const caption = $('fCaption').value.trim();
+            const nets = selectedNets();
+            if (!date || !caption || !nets.length) { toast('Popuni datum, opis i odaberi barem jednu mrezu.'); return; }
+            $('btnSubmit').disabled = true; $('btnSubmit').textContent = 'Spasavam...';
+            try {
+                let mediaUrl = $('fMediaUrl').value.trim() || null, mediaType = mediaUrl ? (/\.(mp4|mov|webm)(\?|$)/i.test(mediaUrl) ? 'video' : 'image') : null, localPath = null;
+                if (pendingMedia) { mediaUrl = pendingMedia.url; mediaType = pendingMedia.mediaType; localPath = pendingMedia.localPath; }
+                const editId = $('editId').value;
+                const body = JSON.stringify({ date, caption, mediaUrl, mediaType, platforms: nets, mediaLocalPath: localPath });
+                const res = await fetch(editId ? POSTS + '?id=' + editId : POSTS, {
+                    method: editId ? 'PATCH' : 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body,
+                });
+                const j = await res.json().catch(() => ({}));
+                if (!res.ok || !j.ok) throw new Error(j.error || ('HTTP ' + res.status));
+                toast(editId ? 'Post azuriran.' : 'Post zakazan za ' + date + '.');
+                resetForm(); await loadAll();
+            } catch (err) {
+                toast('Greska: ' + err.message);
+            } finally {
+                $('btnSubmit').disabled = false; $('btnSubmit').textContent = 'Zakazi post';
+            }
+        }
+        async function deletePost(id) {
+            if (!confirm('Obrisati ovaj post iz plana?')) return;
+            await fetch(POSTS + '?id=' + id, { method: 'DELETE' });
+            toast('Post obrisan.'); await loadAll();
+        }
+        function editPost(id) {
+            const p = QUEUE.find((x) => x.id === id);
+            if (!p) return;
+            $('editId').value = p.id; $('fDate').value = p.date; $('fCaption').value = p.caption;
+            document.querySelectorAll('#netChips .chip').forEach((c) => c.classList.toggle('on', p.platforms.includes(c.dataset.n)));
+            if (p.mediaUrl) { $('fMediaUrl').value = p.mediaUrl; if (p.mediaType === 'image') { $('mediaPrev').src = p.mediaUrl; $('mediaPrev').style.display = 'block'; } }
+            $('formTitle').textContent = 'Izmijeni post';
+            $('btnSubmit').textContent = 'Sacuvaj izmjene';
+            $('btnCancel').style.display = 'inline-block';
+            $('formCard').scrollIntoView({ behavior: 'smooth' });
+        }
+        function resetForm() {
+            $('editId').value = ''; $('fCaption').value = ''; $('fMediaUrl').value = '';
+            $('mediaPrev').style.display = 'none'; pendingMedia = null; $('mediaStatus').textContent = '';
+            $('formTitle').textContent = 'Novi post'; $('btnSubmit').textContent = 'Zakazi post'; $('btnCancel').style.display = 'none';
+            document.querySelectorAll('#netChips .chip').forEach((c) => c.classList.add('on'));
+        }
+        function netBadge(net, p) {
+            const r = (RMAP[p.id] || {})[net];
+            let st;
+            if (!r) st = '<span class="st-wait">&#9203; ' + SLOTS[net] + '</span>';
+            else if (r.status === 'published') st = '<span class="st-done">&#10003; objavljeno</span>';
+            else if (r.status === 'missing_key') st = '<span class="st-key">&#9919; fali kljuc</span>';
+            else if (r.status === 'skipped') st = '<span class="st-wait">preskoceno</span>';
+            else st = '<span class="st-err">&#10007; ' + ((r.error || 'greska') + '').slice(0, 60) + '</span>';
+            return '<span class="net-badge ' + NET_CLS[net] + '">' + NET_LABEL[net] + ' ' + st + '</span>';
+        }
+        function renderList() {
+            if (!QUEUE.length) { $('postList').innerHTML = '<div class="soc-card" style="color:#6B7280;">Jos nema postova. Zakazi prvi putem forme iznad, ili klikni na dan u kalendaru.</div>'; return; }
+            const sorted = [...QUEUE].sort((a, b) => a.date.localeCompare(b.date));
+            $('postList').innerHTML = sorted.map((p) => {
+                const isVid = p.mediaType === 'video';
+                const thumb = p.mediaUrl ? (isVid ? '<div class="post-thumb">&#9654;</div>' : '<img class="post-thumb" src="' + p.mediaUrl + '" alt="">') : '<div class="post-thumb">&#128444;</div>';
+                const badges = p.platforms.map((n) => netBadge(n, p)).join('');
+                const cap = p.caption.replace(/&/g, '&amp;').replace(/</g, '&lt;').slice(0, 260);
+                return '<div class="post-card">' + thumb +
+                    '<div class="post-body"><div class="post-date">' + p.date + (p.date === todayStr() ? ' (danas)' : '') + '</div>' +
+                    '<div class="post-cap">' + cap + '</div><div>' + badges + '</div></div>' +
+                    '<div class="soc-actions"><button class="btn-ghost" onclick="editPost(\'' + p.id + '\')">Izmijeni</button>' +
+                    '<button class="btn-ghost" style="color:#DC2626; border-color:#FCA5A5;" onclick="deletePost(\'' + p.id + '\')">Obrisi</button></div></div>';
+            }).join('');
+        }
+        $('fDate').value = todayStr();
+        loadAll().catch(() => toast('Ne mogu ucitati podatke — provjeri backend.'));
+    </script>
+
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/wow.min.js"></script>
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/active.js"></script>
