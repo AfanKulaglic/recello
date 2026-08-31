@@ -7,14 +7,11 @@
  * u bazi i postaje vidljiv u admin panelu (pored emaila koji šalje FormSubmit).
  *
  * Prosljeđuje i geo podatke iz Vercel headera + pravu IP adresu posjetioca.
+ *
+ * Podržava i narudžbe sa /order stranice: frontend šalje kind='order',
+ * a vercel.json rewrite /api/order-lead → ova funkcija (limit od 12
+ * serverless funkcija na Vercel Hobby planu).
  */
-  // Podrava i narudzbe sa /order stranice: frontend salje kind='order',
-  // a vercel.json rewrite /api/order-lead -> ova funkcija (limit od 12 funkcija na Hobby planu).
-  const isOrder = String(body.kind || '') === 'order';
-  const BACKEND = isOrder
-    ? 'https://api.recello.co.uk/api/order-submit'
-    : 'https://api.recello.co.uk/api/contact-lead';
-
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
@@ -33,6 +30,12 @@ export default async function handler(req, res) {
     const h = req.headers || {};
     const forwarded = String(h['x-forwarded-for'] || '').split(',')[0].trim();
     const realIp = forwarded || h['x-real-ip'] || '';
+
+    // kind='order' → narudžba sa /order stranice, inače kontakt upit.
+    const isOrder = String(body.kind || '') === 'order';
+    const BACKEND = isOrder
+      ? 'https://api.recello.co.uk/api/order-submit'
+      : 'https://api.recello.co.uk/api/contact-lead';
 
     const country = String(h['x-vercel-ip-country'] || '').slice(0, 2);
     const countryName = String(h['x-vercel-ip-country-region'] || '').slice(0, 60);
