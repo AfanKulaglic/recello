@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -239,7 +239,7 @@
                                     <label class="form-label">What would you like to do?</label>
                                     <select name="Enquiry type" id="enquiryType" class="form-select">
                                         <option value="Request a free demo" selected>Request a free demo</option>
-                                        <option value="Need help setting up my number">Need help setting up my number</option>
+                                        <option value="Set up my included UK number">Set up my included UK number</option>
                                         <option value="Test the receptionist on the phone">Test the receptionist on the phone</option>
                                         <option value="Order the Start plan (£19/month)">Order the Start plan (£19/month)</option>
                                         <option value="Order the Business plan (£39/month)">Order the Business plan (£39/month)</option>
@@ -251,10 +251,10 @@
                                 <!-- Number help callout -->
                                 <div class="col-12">
                                     <label for="needNumberHelp" style="display:flex;align-items:flex-start;gap:14px;width:100%;background:linear-gradient(135deg,#F3EDFF 0%,#EDE4FF 100%);border:2px solid #601FEB;border-radius:16px;padding:18px 20px;cursor:pointer;transition:all .2s ease;">
-                                        <input type="checkbox" name="I need help getting a phone number" id="needNumberHelp" value="Yes — please help me get a number" style="width:22px;height:22px;margin-top:2px;flex-shrink:0;accent-color:#601FEB;cursor:pointer;">
+                                        <input type="checkbox" name="I need help getting a phone number" id="needNumberHelp" value="Yes — set up my included UK number" style="width:22px;height:22px;margin-top:2px;flex-shrink:0;accent-color:#601FEB;cursor:pointer;">
                                         <span>
-                                            <strong style="display:block;font-size:1.05rem;color:#1A1330;margin-bottom:4px;">Ÿ“ž I don't have a phone number to connect yet — help me get one</strong>
-                                            <span style="display:block;color:#5A5470;font-size:0.95rem;line-height:1.5;">No problem at all. Tick this and our team will walk you through it step by step — usually done in about 10 minutes. Your business number stays yours (‰ˆ £1—£3/mo, billed directly by the provider), and your Recello plan price doesn't change.</span>
+                                            <strong style="display:block;font-size:1.05rem;color:#1A1330;margin-bottom:4px;">Ÿ“ž Get my included UK business number — set up for me</strong>
+                                            <span style="display:block;color:#5A5470;font-size:0.95rem;line-height:1.5;">Tick this and we’ll provision your UK business number via our partner DIDWW, connect it and test everything — ready within 24 hours, at no extra cost.</span>
                                         </span>
                                     </label>
                                 </div>
@@ -328,7 +328,7 @@
                 }).catch(function () { /* tih pad — mail i dalje ide */ });
             });
         })();
-        // Checkbox "I don't have a phone number to connect yet" — automatski ubere
+        // Checkbox "Get my included UK business number" — automatski ubere
         // odgovarajucu opciju u selectu i dopuni poruku.
         (function () {
             var cb = document.getElementById('needNumberHelp');
@@ -337,10 +337,10 @@
                 var form = document.getElementById('contactForm');
                 if (!form) return;
                 var sel = form.querySelector('[name="Enquiry type"]');
-                if (sel) sel.value = 'Need help setting up my number';
+                if (sel) sel.value = 'Set up my included UK number';
                 var ta = form.querySelector('[name="Message"]');
                 if (cb.checked && ta && !ta.value.trim()) {
-                    ta.value = "Hi — I don't have a phone number to connect yet. Could you help me get one and set everything up?";
+                    ta.value = "Hi — I’d like the included UK business number set up for me. Could you help?";
                 }
             });
         })();
@@ -353,13 +353,13 @@
             var form = document.getElementById('contactForm');
             if (!form) return;
             var sel = form.querySelector('[name="Enquiry type"]');
-            if (sel) sel.value = 'Need help setting up my number';
+            if (sel) sel.value = 'Set up my included UK number';
             var cb = document.getElementById('needNumberHelp');
             if (cb && q.indexOf('number') !== -1) cb.checked = true;
             var ta = form.querySelector('[name="Message"]');
             if (ta && !ta.value.trim()) {
                 ta.value = q.indexOf('number') !== -1
-                    ? "Hi — I don't have a phone number to connect yet. Could you help me get one and set everything up?"
+                    ? "Hi — I’d like the included UK business number set up for me. Could you help?"
                     : "Hi — I'd like help with getting set up. Could you guide me through choosing a number and connecting it?";
             }
         })();
