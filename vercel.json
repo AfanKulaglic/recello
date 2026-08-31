@@ -33,6 +33,10 @@
   ],
   "rewrites": [
     {
+      "source": "/api/order-lead",
+      "destination": "/api/contact-lead"
+    },
+    {
       "source": "/app",
       "destination": "/app/index.html"
     },
