@@ -125,31 +125,11 @@
                             <textarea name="About the business" class="gs-input" rows="3" placeholder="A sentence or two — what do you do, and what calls would the receptionist handle?"></textarea>
                         </div>
                     </div>
-                    <h4 class="mb-3">3 · Your phone number</h4>
+                    <h4 class="mb-3">3 · Your phone number (included)</h4>
                     <div class="gs-number-box">
-                        <p style="color:#4A4460;font-size:.95rem;margin-bottom:14px;">A UK business number is <strong>included with your plan</strong> — we provision it via our partner DIDWW and configure everything for you. Already have a number you love? Forward it instead — we'll help.</p>
-                        <div class="form-check form-check-lg mb-2">
-                            <input class="form-check-input" type="radio" name="Number situation" id="numHave" value="Get a new number (included via DIDWW)" checked>
-                            <label class="form-check-label" for="numHave">
-                                <strong>Get a new number — included in your plan</strong><br>
-                                <small style="color:#6B6584;">We provide a UK business number (via our partner DIDWW) and configure everything. Ready within 24 hours.</small>
-                            </label>
-                        </div>
-                        <div class="form-check form-check-lg mb-2">
-                            <input class="form-check-input" type="radio" name="Number situation" id="numNew" value="I already have a number I want to connect">
-                            <label class="form-check-label" for="numNew">
-                                <strong>I already have a business number</strong><br>
-                                <small style="color:#6B6584;">We'll help you route it to your receptionist (usually simple forwarding).</small>
-                            </label>
-                        </div>
-                        <div class="form-check form-check-lg">
-                            <input class="form-check-input" type="radio" name="Number situation" id="numLater" value="Not sure yet — advise me">
-                            <label class="form-check-label" for="numLater">
-                                <strong>Not sure yet</strong><br>
-                                <small style="color:#6B6584;">No problem — we'll recommend the best option for your business.</small>
-                            </label>
-                        </div>
-                    </div>
+                        <p style="color:#4A4460;font-size:.95rem;margin-bottom:14px;">Good news — a <strong>UK business number is included with your plan</strong> (provided via our partner DIDWW). We pick the number, set it up and connect it to your receptionist — ready within 24 hours.</p>
+                        <div class="gs-label" style="margin-top:6px;">Keep your existing number instead? <span style="font-weight:400;color:#8A84A0;">(optional)</span></div>
+                        <input type="text" class="gs-input" name="Existing number" placeholder="e.g. 020 1234 5678 — we'll help you forward it">
 
                     <div class="mt-4">
                         <button type="submit" class="gs-btn-submit">Complete my order →</button>
@@ -215,7 +195,7 @@
                 return;
             }
 
-            var numberRadio = form.querySelector('input[name="Number situation"]:checked');
+            
             var payload = {
                 kind: 'order',
                 fullName: fullName,
@@ -224,7 +204,7 @@
                 phone: (form.querySelector('[name="Phone"]') || {}).value || '',
                 plan: document.getElementById('planField').value,
                 about: (form.querySelector('[name="About the business"]') || {}).value || '',
-                numberSituation: numberRadio ? numberRadio.value : '',
+                numberSituation: ((form.querySelector('[name="Existing number"]') || {}).value || '').trim() || 'Get a new number (included via DIDWW)',
             };
 
             btn.disabled = true;
