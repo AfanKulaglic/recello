@@ -52,13 +52,23 @@
     <div class="preloader" id="preloader"><div class="spinner-grow" role="status"><span class="visually-hidden">Loading...</span></div></div>
     <div id="siteHeader"></div>
 
-    <section style="background-image: url('assets/img/core-img/grid3.png');">
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-section" style="background-image: url('assets/img/core-img/grid3.png');">
         <div class="divider"></div>
         <div class="container">
-            <div class="text-center py-4">
-                <span class="page-hero-badge">🚀 Get started with Recello</span>
-                <h1 class="mt-3 mb-2">Set up your AI receptionist</h1>
-                <p class="mb-0" style="color:var(--text-para);font-size:1.08rem;">Pick a plan, tell us about your business — live within 24 hours.</p>
+            <div class="breadcrumb-content">
+                <span class="page-hero-badge">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                    🚀 Get started with Recello
+                </span>
+                <h1>Set up your AI receptionist</h1>
+                <p class="page-hero-desc">Pick a plan, tell us about your business — live within 24 hours.</p>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Get Started</li>
+                    </ol>
+                </nav>
             </div>
         </div>
         <div class="divider"></div>
@@ -67,11 +77,7 @@
     <section class="section-soft">
         <div class="container gs-wrap">
             <div class="gs-card">
-                <form id="orderForm" action="https://formsubmit.co/hello@recello.co.uk" method="POST">
-                    <input type="hidden" name="_subject" value="Recello — NEW ORDER from get-started page">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_next" value="https://recello.co.uk/order.html?sent=1">
+                <form id="orderForm" novalidate>
                     <input type="hidden" name="Plan" id="planField" value="Start — £19/month">
 
                     <h4 class="mb-3">1 · Choose your plan</h4>
@@ -191,6 +197,60 @@
                 if (l.getAttribute('data-plan').indexOf(want) !== -1) l.click();
             });
         })();
+
+        // ===== Submit: narudžba ide na backend preko Vercel proxyja (/api/order-lead).
+        // Backend je čuva u bazu (admin panel) i šalje branded mailove
+        // (vlasniku + potvrdu kupcu) sa inline logotipom.
+        document.getElementById('orderForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            var form = e.target;
+            var btn = form.querySelector('.gs-btn-submit');
+            var btnText = btn.textContent;
+
+            var fullName = form.querySelector('[name="Full name"]').value.trim();
+            var company = form.querySelector('[name="Company"]').value.trim();
+            var email = form.querySelector('[name="Email"]').value.trim();
+            if (!fullName || !company || !email) {
+                alert('Please fill in your name, business name and email.');
+                return;
+            }
+
+            var numberRadio = form.querySelector('input[name="Number situation"]:checked');
+            var payload = {
+                fullName: fullName,
+                company: company,
+                email: email,
+                phone: (form.querySelector('[name="Phone"]') || {}).value || '',
+                plan: document.getElementById('planField').value,
+                about: (form.querySelector('[name="About the business"]') || {}).value || '',
+                numberSituation: numberRadio ? numberRadio.value : '',
+            };
+
+            btn.disabled = true;
+            btn.textContent = 'Sending your order…';
+
+            try {
+                var res = await fetch('/api/order-lead', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                var data = await res.json().catch(function () { return {}; });
+                if (res.ok && data.ok) {
+                    document.getElementById('orderSuccess').style.display = 'block';
+                    form.style.display = 'none';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    alert('Something went wrong sending your order. Please try again, or email hello@recello.co.uk.');
+                    btn.disabled = false;
+                    btn.textContent = btnText;
+                }
+            } catch (err) {
+                alert('Something went wrong sending your order. Please try again, or email hello@recello.co.uk.');
+                btn.disabled = false;
+                btn.textContent = btnText;
+            }
+        });
     </script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/wow.min.js"></script>
