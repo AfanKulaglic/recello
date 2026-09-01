@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    Recello — Zajedničke komponente sajta
    ------------------------------------------------------------
    Ubaci ovaj skript na KRAJU body-ja svake stranice:
@@ -277,6 +277,7 @@
             <div class="row align-items-center">
               <div class="col-12 col-md-6">
                 <p class="mb-3 mb-md-0 copyright">Copyright © ${year} <a href="${base}index.html">Recello</a> — All rights reserved.</p>
+                <p class="mb-3 mb-md-0 copyright" style="font-size:.75rem;opacity:.65;">Recello is operated by Afan Kulaglic.</p>
               </div>
               <div class="col-12 col-md-6">
                 <div class="footer-bottom-nav">
