@@ -1,18 +1,37 @@
 ﻿/**
- * Vercel serverless funkcija â€” proxy za automatski outreach status (/mail).
- * ÄŒita outreach/sent iz Firebase preko backend rute /api/outreach-status.
+ * Vercel serverless funkcija — proxy za automatski outreach status (/mail)
+ * + admin login (POST /api/admin-auth -> backend /admin/auth).
  */
 const BACKEND = 'https://api.recello.co.uk/api/outreach-status';
+const BACKEND_AUTH = 'https://api.recello.co.uk/admin/auth';
 
 export const maxDuration = 60;
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
     return res.status(204).end();
+  }
+
+  // POST = admin login (rewrite /api/admin-auth -> ova funkcija)
+  if (req.method === 'POST') {
+    try {
+      const chunks = [];
+      for await (const ch of req) chunks.push(ch);
+      const raw = Buffer.concat(chunks).toString('utf8') || '{}';
+      const upstream = await fetch(BACKEND_AUTH, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Content-Length': String(Buffer.byteLength(raw)) },
+        body: raw,
+      });
+      const data = await upstream.text();
+      return res.status(upstream.status).setHeader('Content-Type', 'application/json').send(data);
+    } catch (err) {
+      return res.status(500).json({ ok: false, error: 'internal' });
+    }
   }
 
   if (req.method !== 'GET') {
