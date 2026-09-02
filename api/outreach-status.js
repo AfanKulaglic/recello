@@ -22,10 +22,15 @@ export default async function handler(req, res) {
       const chunks = [];
       for await (const ch of req) chunks.push(ch);
       const raw = Buffer.concat(chunks).toString('utf8') || '{}';
+      const parsed = JSON.parse(raw) as { email?: string; password?: string };
+      const payload = JSON.stringify({
+        email: String(parsed.email ?? ''),
+        password: String(parsed.password ?? ''),
+      });
       const upstream = await fetch(BACKEND_AUTH, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Content-Length': String(Buffer.byteLength(raw)) },
-        body: raw,
+        headers: { 'Content-Type': 'application/json' },
+        body: payload,
       });
       const data = await upstream.text();
       return res.status(upstream.status).setHeader('Content-Type', 'application/json').send(data);
