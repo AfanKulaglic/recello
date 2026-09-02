@@ -16,19 +16,13 @@ export default async function handler(req, res) {
     return res.status(204).end();
   }
 
-  // Ako zahtjev ima x-admin-user header → admin login flow (rewrite /api/admin-auth).
+  // Ako zahtjev ima ?u=&p= query → admin login flow (rewrite /api/admin-auth).
   // Inače → obični outreach status GET (/mail).
-  if (req.method === 'GET' && req.headers['x-admin-user']) {
+  const qs = (req.url ?? '').split('?')[1] ?? '';
+  const qParams = new URLSearchParams(qs);
+  if (req.method === 'GET' && qParams.get('u') && qParams.get('p')) {
     try {
-      const hu = req.headers['x-admin-user'] as string | undefined;
-      const hp = req.headers['x-admin-pass'] as string | undefined;
-      if (!hp) {
-        return res.status(401).json({ ok: false, error: { code: 'unauthorized', message: 'Missing credentials' } });
-      }
-      const upstream = await fetch(BACKEND_AUTH, {
-        method: 'GET',
-        headers: { 'x-admin-user': String(hu), 'x-admin-pass': String(hp) },
-      });
+      const upstream = await fetch(`${BACKEND_AUTH}?u=${encodeURIComponent(qParams.get('u')!)}&p=${encodeURIComponent(qParams.get('p')!)}`, { method: 'GET' });
       const data = await upstream.text();
       return res.status(upstream.status).setHeader('Content-Type', 'application/json').send(data);
     } catch (err) {
