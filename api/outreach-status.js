@@ -17,20 +17,22 @@ export default async function handler(req, res) {
   }
 
   // POST = admin login (rewrite /api/admin-auth -> ova funkcija)
+  // Kredencijali dolaze kao HEADERI (x-admin-user / x-admin-pass) — bez body parsiranja.
   if (req.method === 'POST') {
     try {
-      const chunks = [];
-      for await (const ch of req) chunks.push(ch);
-      const raw = Buffer.concat(chunks).toString('utf8') || '{}';
-      const parsed = JSON.parse(raw) as { email?: string; password?: string };
-      const payload = JSON.stringify({
-        email: String(parsed.email ?? ''),
-        password: String(parsed.password ?? ''),
-      });
+      const hu = req.headers['x-admin-user'] as string | undefined;
+      const hp = req.headers['x-admin-pass'] as string | undefined;
+      if (!hu || !hp) {
+        return res.status(401).json({ ok: false, error: { code: 'unauthorized', message: 'Missing credentials' } });
+      }
       const upstream = await fetch(BACKEND_AUTH, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: payload,
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-user': String(hu),
+          'x-admin-pass': String(hp),
+        },
+        body: JSON.stringify({ via: 'headers' }),
       });
       const data = await upstream.text();
       return res.status(upstream.status).setHeader('Content-Type', 'application/json').send(data);
