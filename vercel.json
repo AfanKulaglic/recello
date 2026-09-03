@@ -32,10 +32,7 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/api/admin-auth",
-      "destination": "/api/outreach-status"
-    },
+    
     {
       "source": "/api/order-lead",
       "destination": "/api/contact-lead"
