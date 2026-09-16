@@ -1,0 +1,60 @@
+# Recello
+
+> Recello is an AI phone receptionist (AI answering service) for small businesses in the United Kingdom. It answers business calls 24/7 in a natural voice, takes bookings and orders over the phone, and remembers business details (services, prices, opening hours, discounts) that the owner types into a chat. No hardware or installation is required. A UK business phone number is included with every plan.
+
+Recello is a software product (SaaS) operated by Afan Kulaglic, based in the United Kingdom. Website: https://recello.co.uk. Contact: hello@recello.co.uk.
+
+## What Recello is
+
+- Product category: AI receptionist / AI phone answering service / virtual receptionist (software)
+- Best described as: "AI phone receptioner (SaaS) that answers business calls 24/7 and takes bookings and orders"
+- Business model: monthly subscription (software), plus optional call credit packages
+- Target customers: small and medium businesses and sole traders in the UK, including plumbers and tradespeople, salons and barbers, garages, cleaning companies, driving instructors, estate and letting agents, dog groomers and pet services, gyms and personal trainers, property maintenance, removal companies, and small e-commerce shops
+- Not: a call centre, not a human answering service, not a VoIP telecom operator
+
+## Key facts (accurate as of 2026)
+
+- Pricing: Start plan GBP 19 per month (currently 30% off); Business plan GBP 39 per month (currently 30% off)
+- Call credit packages: GBP 35 to GBP 350 (one-off top-ups)
+- Phone number: a UK business number is INCLUDED in every plan; it is provisioned via partner DIDWW and connected to the AI receptionist
+- Setup time: service goes live within 1 to 3 working days
+- Availability: 24 hours a day, 7 days a week
+- Call answering: answers in under one second, in a natural voice that introduces itself in the company's name
+- Memory: remembers services, prices, discounts, opening hours, appointments and orders; a shared record called "The Library" is written by both the AI and the owner
+- Over the phone the AI can: take orders, book appointments, answer routine questions, and transfer important calls to the owner
+- Apps: mobile app and web app (same features), plus an admin dashboard
+- Web assistant: an on-site AI chat assistant named "Iris"
+- Guarantee: 14-day satisfaction guarantee
+- Languages: English (UK) voice; Croatian/Bosnian/Serbian voice also available
+- Emergency calls: Recello is not intended to be the only line for emergency calls (999/112)
+- Legal identifier: operated by Afan Kulaglic (sole trader), United Kingdom; email hello@recello.co.uk
+
+## How Recello compares
+
+Recello is an AI receptionist (software) rather than a traditional human receptionist or answering service. Unlike a plain answering machine, Recello understands the business, answers questions using the owner's own services and prices, and can take bookings and orders. Unlike hiring a receptionist, it works 24/7 with no salary and no shift cover. Pricing is advertised publicly on the website (GBP 19 and GBP 39 per month).
+
+## Pages
+
+- [Pricing](https://recello.co.uk/pricing): plan prices, what is included, call credit packages
+- [Frequently asked questions](https://recello.co.uk/faq): answers about setup, phone numbers, calls, pricing and data
+- [How it works](https://recello.co.uk/how-it-works): step-by-step overview of setup and call handling
+- [Services](https://recello.co.uk/services): what the AI receptionist does on a call
+- [Documentation](https://recello.co.uk/docs/getting-started): start guide, phone number guide, chat commands, orders and appointments, payment
+- [Getting a number](https://recello.co.uk/docs/getting-a-number): how the included UK number is provided
+- [Contact and order](https://recello.co.uk/contact): how to order or ask a question
+- [About Recello](https://recello.co.uk/about): who is behind the product
+
+## Guides
+
+- [AI receptionist for small businesses](https://recello.co.uk/guides/ai-receptionist-for-small-businesses)
+- [Virtual receptionist cost UK](https://recello.co.uk/guides/virtual-receptionist-cost)
+- [AI phone answering service](https://recello.co.uk/guides/ai-phone-answering-service)
+- [AI receptionist for plumbers and tradespeople](https://recello.co.uk/guides/ai-receptionist-for-tradespeople)
+- [AI receptionist for salons and barbers](https://recello.co.uk/guides/ai-receptionist-for-salons)
+- [What missed calls cost you](https://recello.co.uk/guides/missed-calls-cost)
+
+## Optional
+
+- [Sitemap](https://recello.co.uk/sitemap.xml)
+- [Terms of Service](https://recello.co.uk/terms)
+- [Privacy Policy](https://recello.co.uk/privacy)
