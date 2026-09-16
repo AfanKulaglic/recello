@@ -22,7 +22,9 @@ export default async function handler(req, res) {
   const qParams = new URLSearchParams(qs);
   if (req.method === 'GET' && qParams.get('u') && qParams.get('p')) {
     try {
-      const upstream = await fetch(`${BACKEND_AUTH}?u=${encodeURIComponent(qParams.get('u')!)}&p=${encodeURIComponent(qParams.get('p')!)}`, { method: 'GET' });
+      const u = String(qParams.get('u') ?? '');
+      const p = String(qParams.get('p') ?? '');
+      const upstream = await fetch(`${BACKEND_AUTH}?u=${encodeURIComponent(u)}&p=${encodeURIComponent(p)}`, { method: 'GET' });
       const data = await upstream.text();
       return res.status(upstream.status).setHeader('Content-Type', 'application/json').send(data);
     } catch (err) {
